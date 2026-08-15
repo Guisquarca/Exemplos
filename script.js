@@ -1,73 +1,75 @@
-(function() {
-  'use strict';
+const btnGuilherme = document.getElementById('btn-no');
+const btnMayara = document.getElementById('btn-yes');
+const questionContainer = document.getElementById('question-container');
+const successContainer = document.getElementById('success-container');
+const confettiContainer = document.getElementById('confetti-container');
+const mensagemFuga = document.getElementById('mensagem-fuga');
 
-  document.addEventListener('DOMContentLoaded', function() {
-    const yearEl = document.getElementById('year');
-    if (yearEl) yearEl.textContent = new Date().getFullYear();
-    initServiceCards();
-    initTestimonialsCarousel();
-  });
+const frases = [
+    'O Guilherme escapou!',
+    'Ele não vai pagar, tente outra opção...',
+    'Quase pegou o Guilherme!',
+    'Acho que só sobrou a Mayara 👀',
+    'Desiste, ele continua fugindo kkkkk'
+];
 
-  function initServiceCards() {
-    const modal = document.getElementById('service-modal');
-    const modalTitle = document.getElementById('service-modal-title');
-    const modalDescription = document.getElementById('service-modal-description');
-    const modalWhatsapp = document.getElementById('service-modal-whatsapp');
-    const closeButtons = document.querySelectorAll('[data-close-modal]');
-    if (!modal || !modalTitle || !modalDescription || !modalWhatsapp) return;
+let contadorFugas = 0;
+let chuvaIniciada = false;
 
-    const cards = document.querySelectorAll('.service-card');
-    cards.forEach(function(card) {
-      const openBtn = card.querySelector('[data-open-detail]');
-      if (!openBtn) return;
+function fugir(event) {
+    if (event) event.preventDefault();
 
-      openBtn.addEventListener('click', function() {
-        const title = card.getAttribute('data-title') || '';
-        const detail = card.getAttribute('data-detail') || '';
-        const whatsapp = card.getAttribute('data-whatsapp') || '#';
-        modalTitle.textContent = title;
-        modalDescription.textContent = detail;
-        modalWhatsapp.href = whatsapp;
-        modal.hidden = false;
-      });
-    });
+    btnGuilherme.style.position = 'fixed';
 
-    closeButtons.forEach(function(button) {
-      button.addEventListener('click', function() {
-        modal.hidden = true;
-      });
-    });
-  }
+    const margem = 12;
+    const larguraDisponivel = Math.max(0, window.innerWidth - btnGuilherme.offsetWidth - margem * 2);
+    const alturaDisponivel = Math.max(0, window.innerHeight - btnGuilherme.offsetHeight - margem * 2);
 
-  function initTestimonialsCarousel() {
-    const carousel = document.getElementById('testimonials-carousel');
-    if (!carousel) return;
+    const randomX = Math.floor(Math.random() * larguraDisponivel) + margem;
+    const randomY = Math.floor(Math.random() * alturaDisponivel) + margem;
 
-    const items = carousel.querySelectorAll('[data-testimonial-item]');
-    const prevBtn = carousel.querySelector('[data-testimonial-prev]');
-    const nextBtn = carousel.querySelector('[data-testimonial-next]');
-    if (!items.length || !prevBtn || !nextBtn) return;
+    btnGuilherme.style.left = `${randomX}px`;
+    btnGuilherme.style.top = `${randomY}px`;
 
-    let index = 0;
+    mensagemFuga.innerText = frases[Math.min(contadorFugas, frases.length - 1)];
+    contadorFugas++;
+}
 
-    function render() {
-      items.forEach(function(item, itemIndex) {
-        item.hidden = itemIndex !== index;
-      });
+btnGuilherme.addEventListener('pointerenter', fugir);
+btnGuilherme.addEventListener('pointerdown', fugir);
+btnGuilherme.addEventListener('click', fugir);
+
+btnMayara.addEventListener('click', () => {
+    questionContainer.classList.add('hidden');
+    successContainer.classList.remove('hidden');
+    confettiContainer.classList.remove('hidden');
+
+    if (!chuvaIniciada) {
+        chuvaIniciada = true;
+        iniciarChuva();
     }
+});
 
-    prevBtn.addEventListener('click', function() {
-      index = (index - 1 + items.length) % items.length;
-      render();
-    });
+function iniciarChuva() {
+    setInterval(() => {
+        const elemento = document.createElement('div');
 
-    nextBtn.addEventListener('click', function() {
-      index = (index + 1) % items.length;
-      render();
-    });
+        if (Math.random() > 0.5) {
+            elemento.classList.add('ice-cream');
+            elemento.innerText = '🍦';
+        } else {
+            elemento.classList.add('confetti');
+            const cores = ['#da291c', '#ffc72c', '#ffffff', '#ff8c42', '#6a994e'];
+            elemento.style.backgroundColor = cores[Math.floor(Math.random() * cores.length)];
+            elemento.style.width = `${Math.random() * 10 + 5}px`;
+            elemento.style.height = `${Math.random() * 20 + 10}px`;
+        }
 
-    render();
-  }
-})();
+        elemento.style.left = `${Math.random() * 100}vw`;
+        elemento.style.animationDuration = `${Math.random() * 3 + 2}s`;
+        confettiContainer.appendChild(elemento);
 
+        setTimeout(() => elemento.remove(), 5000);
+    }, 90);
+}
 

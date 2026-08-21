@@ -1,0 +1,2494 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guilherme Squarça - Estudos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        header {
+            background: linear-gradient(90deg, #e94560, #ff6b6b);
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(233, 69, 96, 0.4);
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .divider {
+            height: 6px;
+            background: linear-gradient(90deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71);
+            background-size: 200% 100%;
+            animation: rainbow 4s linear infinite;
+        }
+
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb button {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .breadcrumb button:hover {
+            background: rgba(233, 69, 96, 0.3);
+            border-color: #e94560;
+        }
+
+        .breadcrumb span {
+            color: #aaa;
+            font-size: 1.2em;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 40px;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(233, 69, 96, 0.6);
+            box-shadow: 0 15px 40px rgba(233, 69, 96, 0.3);
+        }
+
+        .card-icon {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #bbb;
+            font-size: 0.95em;
+        }
+
+        .card.materia {
+            border-left: 6px solid #e94560;
+        }
+
+        .card.aula {
+            border-left: 6px solid #3498db;
+        }
+
+        .content-area {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+            line-height: 1.8;
+        }
+
+        .content-area h2 {
+            color: #e94560;
+            font-size: 2em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #e94560;
+            padding-bottom: 10px;
+        }
+
+        .content-area h3 {
+            color: #f39c12;
+            font-size: 1.5em;
+            margin: 30px 0 15px;
+        }
+
+        .content-area h4 {
+            color: #3498db;
+            font-size: 1.2em;
+            margin: 25px 0 10px;
+        }
+
+        .content-area p {
+            margin-bottom: 15px;
+            color: #e0e0e0;
+            font-size: 1.05em;
+        }
+
+        .content-area ul, .content-area ol {
+            margin: 15px 0 15px 30px;
+            color: #e0e0e0;
+        }
+
+        .content-area li {
+            margin-bottom: 8px;
+        }
+
+        .content-area strong {
+            color: #ff6b6b;
+        }
+
+        .highlight-box {
+            background: rgba(233, 69, 96, 0.15);
+            border-left: 4px solid #e94560;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .tip-box {
+            background: rgba(46, 204, 113, 0.15);
+            border-left: 4px solid #2ecc71;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .warning-box {
+            background: rgba(243, 156, 18, 0.15);
+            border-left: 4px solid #f39c12;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .questao {
+            background: rgba(255,255,255,0.08);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            border: 2px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+
+        .questao.correta {
+            border-color: #2ecc71;
+            background: rgba(46, 204, 113, 0.1);
+        }
+
+        .questao.incorreta {
+            border-color: #e74c3c;
+            background: rgba(231, 76, 60, 0.1);
+        }
+
+        .questao h4 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 1.15em;
+        }
+
+        .opcao {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .opcao:hover:not(.desabilitado) {
+            background: rgba(52, 152, 219, 0.2);
+            border-color: #3498db;
+            transform: translateX(5px);
+        }
+
+        .opcao.selecionada {
+            background: rgba(231, 76, 60, 0.2);
+            border-color: #e74c3c;
+        }
+
+        .opcao.correta-resposta {
+            background: rgba(46, 204, 113, 0.2) !important;
+            border-color: #2ecc71 !important;
+        }
+
+        .opcao.desabilitado {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .opcao-letra {
+            background: #e94560;
+            color: #fff;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .feedback {
+            margin-top: 20px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            display: none;
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback.correto {
+            display: block;
+            background: rgba(46, 204, 113, 0.2);
+            border: 2px solid #2ecc71;
+        }
+
+        .feedback.incorreto {
+            display: block;
+            background: rgba(231, 76, 60, 0.2);
+            border: 2px solid #e74c3c;
+        }
+
+        .feedback h5 {
+            font-size: 1.2em;
+            margin-bottom: 8px;
+        }
+
+        .feedback.correto h5 {
+            color: #2ecc71;
+        }
+
+        .feedback.incorreto h5 {
+            color: #e74c3c;
+        }
+
+        .feedback p {
+            color: #ddd;
+            margin: 0;
+            font-size: 1em;
+        }
+
+        .parabens {
+            display: inline-block;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            animation: bounce 0.6s ease infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin-bottom: 25px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.5);
+        }
+
+        .section-divider {
+            text-align: center;
+            margin: 50px 0 30px;
+            position: relative;
+        }
+
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        }
+
+        .section-divider span {
+            background: #1a1a2e;
+            padding: 0 20px;
+            position: relative;
+            font-size: 1.3em;
+            color: #f39c12;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+            .content-area {
+                padding: 20px;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>GUILHERME SQUARÇA - ESTUDOS</h1>
+    </header>
+    <div class="divider"></div>
+
+    <div class="container">
+        <div id="app"></div>
+    </div>
+
+    <script>
+        // ==================== DADOS DAS MATÉRIAS E AULAS ====================
+
+        const materias = [
+            {
+                    id: 'pensamento',
+                    nome: 'Pensamento Computacional',
+                    icone: '💭',
+                    descricao: 'Fundamentos, pilares e aplicações',
+                    aulas: [
+                        {
+                            id: 'pc-aula1',
+                            numero: 1,
+                            titulo: 'Por que usamos computadores?',
+                            icone: '🖥️',
+                            conteudo: `
+                                <h2>AULA 1 - POR QUE USAMOS COMPUTADORES?</h2>
+
+                                <div class="section-divider"><span>PARTE 1 — A EQUAÇÃO ESSENCIAL</span></div>
+
+                                <h3>1.1 A equação fundamental (anote!)</h3>
+                                <p>Antes de tudo, guarde esta ideia, que é a base de todo o conteúdo:</p>
+                                <div class="highlight-box">
+                                    <p style="font-size:1.3em;text-align:center;"><strong>COMPUTADOR = "incapacidade de pensar" × "velocidade gigantesca"</strong></p>
+                                </div>
+                                <p>Traduzindo: o computador não pensa (só executa operações simples), mas faz isso a uma velocidade absurda. Essa combinação é o segredo de tudo o que ele faz.</p>
+                                <p>Os processadores modernos são capazes de executar <strong>bilhões de instruções por segundo</strong>. Desde 2005, já passavam de 1 bilhão; os lançados em meados de 2019 passam de 48 bilhões de instruções por segundo.</p>
+
+                                <h3>1.2 Poderoso e tolo ao mesmo tempo</h3>
+                                <p>Essa é a característica mais fascinante do computador — e a mais mal compreendida:</p>
+                                <ul>
+                                    <li><strong>Extremamente poderoso:</strong> faz bilhões de operações por segundo, gerando dados numa velocidade impossível para nós, humanos.</li>
+                                    <li><strong>Profundamente tolo:</strong> as operações que ele sabe fazer são ridiculamente simples — somar dois números para obter um terceiro, ou verificar se um número é zero.</li>
+                                </ul>
+                                <p>Exemplo: você pode achar que "identificar a impressão digital de uma pessoa" exige inteligência. Mas não: o discernimento (decidir que digitais são únicas, criar o método de captura) foi humano. O computador só cruza os dados guardados — de forma incrivelmente rápida. A sacada é nossa; a velocidade é dele.</p>
+                                <div class="warning-box">
+                                    <p><strong>Hollywood nos engana:</strong> em filmes como Matrix, O Exterminador do Futuro, Eu, Robô e 2001, os computadores aparecem com sentimentos, criatividade e discernimento — características humanas. A realidade é bem diferente: o computador é um mundo mecânico.</p>
+                                </div>
+                                <div class="tip-box">
+                                    <p><strong>Para fixar:</strong> discernimento, compreensão, criatividade e emoção são qualidades humanas. O computador é só uma máquina muito rápida que executa instruções muito simples.</p>
+                                </div>
+
+                                <h3>1.3 Humano versus máquina</h3>
+                                <h4>A alegoria da caverna (Platão)</h4>
+                                <p>Pessoas acorrentadas desde o nascimento só enxergam as sombras projetadas na parede — aquilo é a "realidade" delas. Quando alguém se liberta, descobre um mundo infinito — o mundo do pensamento, da abstração. A lição: nossa capacidade de pensar é infinita, mas nossa capacidade de materializar o que pensamos é limitada. O computador é só mais uma ferramenta nossa, aprimorada, porém limitada.</p>
+                                <h4>O xadrez</h4>
+                                <p>Quando a máquina passou a vencer campeões, os jornais gritaram "máquina vence o homem!". Será? Não. A disputa nunca foi máquina × homem: foi <strong>programador × enxadrista</strong>. Quando o programador ainda não tinha dado à máquina todas as informações, ele perdia. Quando conseguiu, a máquina "venceu" — mas ela só executou o que o programador pediu, com uma velocidade que o humano jamais teria.</p>
+                                <div class="highlight-box">
+                                    <p><strong>Para fixar:</strong> a máquina não supera o humano. O humano (programador) usa a máquina como ferramenta para fazer, em segundos, o que levaria uma vida inteira.</p>
+                                </div>
+
+                                <div class="section-divider"><span>PARTE 2 — EXPLORANDO O POTENCIAL</span></div>
+
+                                <h3>2.1 O dilema: máquina rápida, porém "tola"</h3>
+                                <p>Se o computador é rápido mas só faz operações bobas, como ele realiza tarefas úteis (editar fotos, mandar e-mail, filtros de maquiagem)? A resposta está em <strong>quem programa</strong>.</p>
+                                <p>O computador precisa receber informações, padrões e regras para executar o que você espera. Sem instruções bem definidas, a máquina chega ao limite dela.</p>
+                                <div class="warning-box">
+                                    <p><strong>Analogia:</strong> um motorista decide que "sinal amarelo é para parar". Mas nem todos pensam igual — quem vem atrás pode não frear, e dá colisão. Para a máquina "entender" o que você quer, as regras precisam estar claras e completas.</p>
+                                </div>
+
+                                <h3>2.2 Código × Algoritmo (não confunda!)</h3>
+                                <p>Esses dois conceitos vivem juntos, mas não são a mesma coisa:</p>
+                                <ul>
+                                    <li><strong>Código-fonte:</strong> um conjunto de instruções escrito em uma linguagem de programação específica (como C++). É o que o computador de fato executa.</li>
+                                    <li><strong>Algoritmo:</strong> a sequência de passos lógicos que descreve a solução de um problema. Pode ser escrito até em português, sem depender de linguagem nenhuma.</li>
+                                </ul>
+                                <div class="tip-box">
+                                    <p><strong>Para fixar:</strong> o algoritmo vem primeiro (a ideia, o plano); o código-fonte é a tradução desse plano para a linguagem da máquina. O algoritmo é abstrato; o código é concreto. Um código só pode ser chamado de algoritmo quando funciona — quando alcança a finalidade para a qual foi criado.</p>
+                                </div>
+
+                                <h3>2.3 O papel do programador</h3>
+                                <p>O que liga a demanda humana ("quero tirar olhos vermelhos das fotos") à solução (o programa que faz isso)? Os programadores. São 3 etapas:</p>
+                                <ol>
+                                    <li><strong>Discernir:</strong> perceber que dá para achar a cor vermelha na foto e verificar se ela tem forma arredondada (a ideia!);</li>
+                                    <li><strong>Estruturar:</strong> quebrar cada passo em instruções tão simples que o computador consiga executar uma a uma;</li>
+                                    <li><strong>Escrever e testar:</strong> transformar isso em código, testar e melhorar até funcionar — aí sim, virou algoritmo.</li>
+                                </ol>
+
+                                <h3>2.4 A Lei de Moore</h3>
+                                <p>Há mais de 50 anos, Gordon Moore fez uma previsão: a capacidade dos computadores cresce continuamente, e os custos caem. O resultado:</p>
+                                <ul>
+                                    <li>A cada geração, tecnologias que antes eram caras chegam a mais pessoas;</li>
+                                    <li>A capacidade de trocar dados aumenta, enquanto a necessidade de material diminui;</li>
+                                    <li>Os computadores encolhem: de máquinas enormes para tablets, laptops e smartphones.</li>
+                                </ul>
+                                <div class="tip-box">
+                                    <p><strong>Para fixar:</strong> o impacto mais marcante da evolução tecnológica é a ampliação do acesso — públicos que antes não tinham acesso passam a consumir tecnologia. A dinâmica (códigos + algoritmos) não mudou.</p>
+                                </div>
+
+                                <div class="section-divider"><span>PARTE 3 — CÓDIGO NA PRÁTICA (EM C++)</span></div>
+
+                                <h3>3.1 O que é sintaxe?</h3>
+                                <p><strong>Sintaxe</strong> são as regras gramaticais de cada linguagem de programação. Um código que desrespeita a sintaxe gera um erro de sintaxe. Errar sintaxe é normalíssimo, até para programadores experientes.</p>
+
+                                <h3>3.2 O "esqueleto" de todo programa C++</h3>
+                                <p>Estrutura mínima:</p>
+                                <pre style="background:rgba(255,255,255,0.1);padding:15px;border-radius:10px;overflow:auto;">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    // o código que será executado fica aqui dentro
+    return 0;
+}</pre>
+                                <ul>
+                                    <li><code style="background:rgba(255,255,255,0.15);padding:2px 6px;border-radius:4px;">#include &lt;iostream&gt;</code> → inclui a biblioteca que ensina o programa a escrever na tela;</li>
+                                    <li><code style="background:rgba(255,255,255,0.15);padding:2px 6px;border-radius:4px;">using namespace std;</code> → evita escrever <code>std::</code> antes de <code>cout</code>;</li>
+                                    <li><code style="background:rgba(255,255,255,0.15);padding:2px 6px;border-radius:4px;">int main() { ... }</code> → onde o programa começa a rodar;</li>
+                                    <li><code style="background:rgba(255,255,255,0.15);padding:2px 6px;border-radius:4px;">return 0;</code> → avisa que o programa terminou com sucesso.</li>
+                                </ul>
+
+                                <h3>3.3 Imprimindo textos (strings)</h3>
+                                <p>Uma <em>string</em> é um tipo de dado que guarda texto. Para imprimir na tela em C++, usamos <code style="background:rgba(255,255,255,0.15);padding:2px 6px;border-radius:4px;">cout</code> (console out):</p>
+                                <pre style="background:rgba(255,255,255,0.1);padding:15px;border-radius:10px;overflow:auto;">cout << "Teste" << endl;
+cout << "Bom dia" << endl;</pre>
+                                <ul>
+                                    <li><code><<</code> → "seta" que empurra o dado para a tela (um funil);</li>
+                                    <li><code>"..."</code> → aspas duplas delimitam um texto. Tudo entre aspas é dado passivo (só texto);</li>
+                                    <li><code>endl</code> → "end line" = pula linha (também funciona <code>\n</code> dentro do texto);</li>
+                                    <li><code>//</code> → comentário: o computador ignora tudo depois disso.</li>
+                                </ul>
+                                <div class="warning-box">
+                                    <p><strong>Lição fundamental:</strong> dentro das aspas, tudo é apenas texto. O computador não "executa" o que está entre aspas — ele só imprime!</p>
+                                </div>
+
+                                <h3>3.4 Erros de sintaxe comuns</h3>
+                                <p>Em C++, os erros mais comuns de iniciante são:</p>
+                                <ul>
+                                    <li>Comando digitado errado (ex.: <code>cot</code> em vez de <code>cout</code>);</li>
+                                    <li>Aspas faltando (abriu mas não fechou);</li>
+                                    <li>Caractere trocado (ex.: <code>c0ut</code> com zero no lugar da letra o);</li>
+                                    <li>Ponto e vírgula (<code>;</code>) esquecido no final da instrução.</li>
+                                </ul>
+
+                                <h3>3.5 Variáveis: "caixas" para guardar valores</h3>
+                                <p>Uma <strong>variável</strong> é como uma caixa na memória do computador, onde guardamos um valor para usar depois. Ela tem um nome e um valor.</p>
+                                <p>Em C++, você precisa declarar o tipo da variável. Para números inteiros, usamos <code>int</code>:</p>
+                                <pre style="background:rgba(255,255,255,0.1);padding:15px;border-radius:10px;overflow:auto;">int V = 7;
+cout << V << endl;
+cout << "O valor da variável é: " << V << endl;</pre>
+                                <p>Para textos, usamos <code>string</code> (incluindo a biblioteca <code>&lt;string&gt;</code>):</p>
+                                <pre style="background:rgba(255,255,255,0.1);padding:15px;border-radius:10px;overflow:auto;">string nome1 = "Mariah";
+string nome2 = "Luiza";</pre>
+                                <div class="warning-box">
+                                    <p><strong>Atenção!</strong> Em programação, o sinal <code>=</code> significa <strong>ATRIBUIÇÃO</strong> ("guardar o valor na caixa"), e não "igualdade" como na matemática! Para comparar se dois valores são iguais, usamos <code>==</code> (dois sinais de igual).</p>
+                                </div>
+
+                                <div class="section-divider"><span>📝 ATIVIDADES DA AULA 1</span></div>
+                            `,
+                            questoes: [
+                                {
+                                    pergunta: 'Os processadores executam bilhões de instruções, mas não "pensam". Qual das operações abaixo um processador consegue executar diretamente?',
+                                    opcoes: ['Multiplicação', 'Radiciação', 'Interpretação de dados', 'Decomposição', 'Manipulação de dados'],
+                                    correta: 0,
+                                    explicacao: 'O processador executa operações matemáticas básicas (adição, subtração, multiplicação, divisão) por meio de instruções de hardware. "Interpretar" dados é papel humano; operações mais complexas são construídas a partir dessas instruções simples.'
+                                },
+                                {
+                                    pergunta: 'Como podemos relacionar a alegoria da caverna de Platão aos computadores?',
+                                    opcoes: [
+                                        'Metáfora para o surgimento da inteligência artificial.',
+                                        'Ilustra a interconexão global da internet.',
+                                        'Reflete o aprendizado de máquina.',
+                                        'Demonstra a distinção entre a realidade física e a realidade virtual/mundo digital.',
+                                        'Explora a ética da privacidade de dados.'
+                                    ],
+                                    correta: 3,
+                                    explicacao: 'Assim como os prisioneiros da caverna só enxergavam sombras na parede, os usuários de computador podem ficar imersos em mundos digitais, desconectados da realidade física — lembrando que a verdadeira capacidade de pensar é humana.'
+                                },
+                                {
+                                    pergunta: 'Qual é a relação entre código-fonte e algoritmo?',
+                                    opcoes: [
+                                        'O código-fonte é escrito numa linguagem de programação; o algoritmo é uma sequência de passos lógicos que pode ser escrita em linguagem comum.',
+                                        'O código-fonte é uma representação visual do algoritmo.',
+                                        'O código-fonte é o resultado final do algoritmo.',
+                                        'O algoritmo é uma etapa intermediária na criação do código-fonte.',
+                                        'São sinônimos.'
+                                    ],
+                                    correta: 0,
+                                    explicacao: 'O algoritmo é a ideia/sequência lógica (pode ser em português); o código-fonte é a implementação concreta dessa ideia numa linguagem específica. Um código só vira algoritmo de verdade quando funciona e resolve o problema.'
+                                },
+                                {
+                                    pergunta: 'Qual é o papel dos programadores?',
+                                    opcoes: [
+                                        'Criar demandas para novas funcionalidades.',
+                                        'Monitorar o desempenho do hardware.',
+                                        'Desenvolver algoritmos para transformar demandas humanas em funcionalidades que o computador consegue executar.',
+                                        'Ajustar a velocidade do processador.',
+                                        'Atender demandas de hardware.'
+                                    ],
+                                    correta: 2,
+                                    explicacao: 'O programador faz a ponte entre a necessidade humana e a máquina: ele discerne, estrutura em passos simples, escreve o código e testa até que vire um algoritmo funcional.'
+                                },
+                                {
+                                    pergunta: 'Qual é a definição de algoritmo?',
+                                    opcoes: [
+                                        'Conjunto de instruções expresso apenas em linguagem de programação.',
+                                        'Sequência de passos complexos sem propósito.',
+                                        'Conjunto de passos com finalidade útil, que pode ser escrito até em linguagem comum (português).',
+                                        'Comandos sem relação entre si.',
+                                        'Processo que não requer implementação.'
+                                    ],
+                                    correta: 2,
+                                    explicacao: 'Algoritmo é a sequência lógica de passos com finalidade útil (resolver um problema). Ele não depende de linguagem de programação — pode ser descrito em português, como uma receita de bolo.'
+                                },
+                                {
+                                    pergunta: 'Qual é o principal impacto da evolução tecnológica segundo a Lei de Moore?',
+                                    opcoes: [
+                                        'Redução da interconexão entre sistemas.',
+                                        'Diminuição da dependência da tecnologia.',
+                                        'Aumento da velocidade de substituição de produtos.',
+                                        'Estagnação do desenvolvimento.',
+                                        'Ampliação do acesso à tecnologia (barateamento e popularização).'
+                                    ],
+                                    correta: 4,
+                                    explicacao: 'Com o passar dos anos, a capacidade cresce e os custos caem, fazendo com que tecnologias antes caras cheguem a mais pessoas. O acesso ampliado é o impacto mais marcante.'
+                                },
+                                {
+                                    pergunta: 'Um iniciante escreveu: cout << "A" << endl; cout << "BB" << endl; cout << "CCC" << endl — O que acontecerá ao compilar?',
+                                    opcoes: [
+                                        'Erro de sintaxe na segunda linha, que deve ser cout << "BB";.',
+                                        'Nenhum erro ocorrerá.',
+                                        'Erro na primeira linha, que deve ser cout << A;.',
+                                        'Erro de sintaxe: falta o ponto e vírgula na terceira linha.',
+                                        'Erros nas duas primeiras linhas.'
+                                    ],
+                                    correta: 3,
+                                    explicacao: 'Em C++, toda instrução deve terminar com ponto e vírgula (;). As duas primeiras linhas têm o ; corretamente; só a última está faltando.'
+                                }
+                            ]
+                        },
+                        {
+                            id: 'pc-aula2',
+                            numero: 2,
+                            titulo: 'Pensamento Computacional',
+                            icone: '🧠',
+                            conteudo: `
+                                <h2>AULA 2 - PENSAMENTO COMPUTACIONAL</h2>
+                                <p>Olá! Vamos conhecer um assunto que todo mundo fala, mas pouca gente entende de verdade: o pensamento computacional. A boa notícia? Ele não tem nada a ver com "saber mexer em computador" — e você já usa os princípios dele no dia a dia sem perceber.</p>
+
+                                <div class="section-divider"><span>PARTE 1 — O QUE É?</span></div>
+
+                                <h3>1.1 O mundo está mudando rápido</h3>
+                                <p>A sociedade nunca mudou tão depressa. Tecnologias inovadoras nascem e, poucos anos depois, são substituídas por outras ainda mais <strong>disruptivas</strong> (que interrompem e transformam o jeito normal de fazer algo).</p>
+                                <p>Exemplos históricos de tecnologias disruptivas:</p>
+                                <ul>
+                                    <li><strong>A escrita:</strong> permitiu que o conhecimento se perpetuasse, mas criou o desafio de armazená-lo e difundi-lo.</li>
+                                    <li><strong>A imprensa (século XVI) e os computadores:</strong> hoje o conhecimento gerado em qualquer parte do mundo pode ser consultado em segundos por alguém do outro lado do globo.</li>
+                                </ul>
+                                <p>A grande mudança: habilidades que antes eram só da área de Computação viraram fundamentais para <strong>qualquer profissional do século XXI</strong>. Esse conjunto de habilidades é o pensamento computacional.</p>
+
+                                <h3>1.2 O que pensamento computacional NÃO é</h3>
+                                <p>Antes de definir, vamos derrubar dois mitos:</p>
+                                <ul>
+                                    <li><strong>Mito 1:</strong> "É pensar como computador". <strong>Errado!</strong> Computador não pensa — só segue instruções simples. Quem pensa é você.</li>
+                                    <li><strong>Mito 2:</strong> "É o mesmo que programar". <strong>Também errado!</strong> Você nem precisa de um computador para praticar o pensamento computacional.</li>
+                                </ul>
+                                <div class="highlight-box">
+                                    <p><strong>Definição (Blikstein, 2008):</strong> Pensamento computacional é usar o computador como instrumento para aumentar nossos poderes cognitivo e operacional — usar computadores e redes para ampliar nossa produtividade, inventividade e criatividade.</p>
+                                </div>
+                                <div class="tip-box">
+                                    <p><strong>Para fixar:</strong> não é saber usar ferramentas prontas; é saber usar a tecnologia para <em>criar</em> novas ferramentas. Não é "copiar e colar" — é analisar, entender e propor soluções.</p>
+                                </div>
+
+                                <h3>1.3 Os 4 pilares</h3>
+                                <p>São quatro habilidades que trabalham juntas, como as quatro pernas de uma mesa — sem uma delas, a mesa cai. Vamos usar o exemplo de uma companhia aérea:</p>
+
+                                <h4>Pilar 1 — Decomposição: dividir o problema em pedaços</h4>
+                                <p>Quebrar um problema complexo em partes menores, mais fáceis de entender, gerenciar e resolver. "Levar pessoas de uma cidade a outra de avião" pode ser dividido em: comprar passagem → fazer check-in → despachar bagagem → embarcar → decolar/voar/pousar. É dividir até o problema ficar tratável.</p>
+
+                                <h4>Pilar 2 — Abstração: ignorar o que não importa</h4>
+                                <p>Descartar os detalhes que não são imprescindíveis para resolver o problema — focar no que realmente importa. No embarque, o atendente ignora altura, peso e cor do cabelo dos passageiros e abstrai só: nome, foto do documento, cartão de embarque, peso da bagagem. Isso economiza tempo e permite soluções genéricas.</p>
+
+                                <h4>Pilar 3 — Reconhecimento de padrões: reaproveitar soluções</h4>
+                                <p>Padrões são semelhanças entre problemas diferentes. Esteiras rolantes de aeroporto resolveram o problema de "longas caminhadas" usando um princípio parecido com o das escadas rolantes de shopping. É o "já vi algo parecido antes; posso reaproveitar a ideia".</p>
+
+                                <h4>Pilar 4 — Algoritmos: criar o passo a passo</h4>
+                                <p>Automação por meio de instruções passo a passo. É a receita que qualquer um pode seguir para chegar ao resultado, como os manuais de procedimentos das companhias aéreas para colaboradores novatos.</p>
+
+                                <div class="tip-box">
+                                    <p><strong>Dica prática:</strong> aplique os 4 pilares a um problema do seu cotidiano (organizar uma mudança, planejar uma festa, estudar para uma prova) e veja como fica mais fácil!</p>
+                                </div>
+
+                                <h3>1.4 Pensamento computacional e o mercado</h3>
+                                <p>O mercado busca soft skills (habilidades interpessoais): inovar, planejar, decidir, aprender e ter boa relação com as pessoas. Mais de 90% dos recrutadores dizem que soft skills importam tanto ou mais que competências técnicas. O pensamento computacional fortalece:</p>
+                                <ul>
+                                    <li><strong>Capacidade de inovar</strong> — pensar no que já existe de jeito diferente;</li>
+                                    <li><strong>Capacidade de planejar</strong> — fazer o próprio planejamento de forma estruturada;</li>
+                                    <li><strong>Capacidade de aprender</strong> — renovar o conhecimento constantemente;</li>
+                                    <li><strong>Raciocínio lógico</strong> — melhorar com a prática, não é só para matemáticos.</li>
+                                </ul>
+
+                                <div class="section-divider"><span>PARTE 2 — ECONOMIA, NEGÓCIOS E DIREITO</span></div>
+
+                                <h3>2.1 A Economia Criativa</h3>
+                                <p>Cronologia:</p>
+                                <ul>
+                                    <li><strong>Século XVIII:</strong> economia baseada em bens tangíveis (Revolução Industrial);</li>
+                                    <li><strong>2001:</strong> Peter Coy (Businessweek) fala pela primeira vez em Economia Criativa — empresas focadas em conhecimento e inventividade. O Reino Unido inclui itens como música, software, cinema e games na balança comercial;</li>
+                                    <li><strong>2007:</strong> ONU/UNESCO difundem o conceito globalmente e criam a Rede de Cidades Criativas (mais de 180 municípios em 7 setores; 8 cidades brasileiras: Belém, Florianópolis, Paraty, Brasília, Curitiba, João Pessoa, Salvador, Santos).</li>
+                                </ul>
+                                <p><strong>Setores da Economia Criativa (UNCTAD):</strong> artes performáticas, artes visuais, audiovisual, edição/impressão, expressões culturais tradicionais, design, novas mídias (software, games, conteúdo digital), patrimônio cultural, serviços criativos (arquitetura, publicidade, P&D).</p>
+                                <p>Na prática: bibliotecas/museus com realidade virtual, publicidade direcionada, arquitetura 3D, shows com robôs de luz/som, transmissões ao vivo, IA em fotografia/filmagem, efeitos especiais baratos no cinema. A criatividade humana é insubstituível — a tecnologia a potencializa.</p>
+
+                                <h3>2.2 Reinventando os negócios</h3>
+                                <div class="warning-box">
+                                    <p><strong>Caso clássico: Blockbuster × Netflix.</strong> A Blockbuster (maior locadora do mundo) faliu em 2010. A Netflix (fundada em 1997) se adaptou: percebeu que clientes odiavam multas por atraso, criou o plano mensal ilimitado e apostou no streaming (transmissão pela internet sem download). Lição: empresas que esquecem a inovação ficam para trás.</p>
+                                </div>
+                                <p>Os bancos também mudaram: aplicativos, internet banking, caixas eletrônicos, cartões mais seguros, QR Codes, pagamento por aproximação, biometria, reconhecimento facial e criptomoedas (como o bitcoin).</p>
+
+                                <h3>2.3 A Computação no Direito</h3>
+                                <p>Sistemas de apoio à decisão <strong>facilitam</strong> o trabalho dos profissionais — mas não decidem sozinhos (assim como robôs na telemedicina auxiliam, mas o médico opera). Antes, pessoas liam diários oficiais manualmente; hoje sistemas fazem isso em minutos.</p>
+                                <p><strong>Três casos famosos:</strong></p>
+                                <ol>
+                                    <li><strong>ROSS Intelligence (2016):</strong> software baseado no IBM Watson que responde perguntas em linguagem comum e aprende com o feedback.</li>
+                                    <li><strong>COMPAS (EUA):</strong> algoritmo que calcula probabilidade de reincidência de réus (questionário de 1 a 10). Vantagem: imparcial. Desvantagem: pode influenciar juízes/júri na definição de penas.</li>
+                                    <li><strong>Daniel Martin Katz (2014):</strong> algoritmo de machine learning que previu 70% das decisões da Suprema Corte americana (análise de 28 mil decisões e 240 mil votos) — campo chamado Previsão Legal Quantitativa (QLP).</li>
+                                </ol>
+
+                                <div class="section-divider"><span>PARTE 3 — EDUCAÇÃO E ENGENHARIA</span></div>
+
+                                <h3>3.1 Educação no século XXI</h3>
+                                <p>Mudanças na educação são de longo prazo — podem levar uma geração para serem percebidas. A visão puramente utilitarista ("para que serve isso?") desvirtua a formação integral, mas a educação contemporânea é cada vez mais prática.</p>
+                                <p>O pensamento computacional ajuda jovens a desenvolver habilidades para todas as áreas (não só Exatas): articular problemas, pensar logicamente, explorar causa e efeito.</p>
+                                <p><strong>Nos EUA:</strong> programa "Ciência da Computação para Todos" — foco em meninas e minorias, com professores recebendo treinamento.</p>
+                                <p><strong>No Brasil:</strong> a BNCC (Base Nacional Comum Curricular, homologada em 2018) cita diretamente o pensamento computacional no ensino de Matemática: compreender, analisar, modelar, resolver, comparar e automatizar problemas de forma metódica por meio de algoritmos.</p>
+                                <p><strong>Dois desafios brasileiros:</strong> (1) aulas de informática se limitam a editores de texto/navegadores; (2) faltam professores capacitados.</p>
+
+                                <h3>3.2 Computação SEM computador (CS Unplugged)</h3>
+                                <p>Bell, Witten e Fellows (2011) propõem ensinar Ciência da Computação por atividades lúdicas <strong>sem computador</strong> — fácil de aplicar e com grande papel social para locais sem acesso à tecnologia. Exemplos:</p>
+                                <ul>
+                                    <li>Cartas pintadas e ordenadas para aprender números binários;</li>
+                                    <li>Jogo de palavras: substituir letras repetidas por setas para a ocorrência anterior (ensaia compactação de arquivos).</li>
+                                </ul>
+
+                                <h3>3.3 Ferramentas educacionais</h3>
+                                <ul>
+                                    <li><strong>Scratch:</strong> linguagem de programação visual em blocos para 8–16 anos, mais de 40 idiomas.</li>
+                                    <li><strong>Hora do Código:</strong> experiência de uma hora de programação que já alcançou 100 milhões de alunos em 45 idiomas.</li>
+                                    <li><strong>Code.org:</strong> organização sem fins lucrativos apoiada por grandes empresas de tecnologia (Amazon, Microsoft, Facebook, Google) — cursos gratuitos e capacitação para professores, usando gamificação.</li>
+                                </ul>
+
+                                <h3>3.4 Na Engenharia</h3>
+                                <p>Dois grandes desafios do ensino de Engenharia: (1) heterogeneidade dos alunos (diferentes bases de Matemática/Leitura); (2) complexidade crescente dos sistemas. A solução é integrar o pensamento computacional em todo o currículo.</p>
+                                <p>Ferramentas como <strong>MATLAB</strong> (cálculos numéricos) e plataformas de hardware como o <strong>LEGO Mindstorms</strong> (robôs com blocos de montar) ajudam a dar vida aos conceitos desde o 1º ano. A regra de ouro: usar os mesmos softwares do início ao fim do curso — preferencialmente os mesmos usados na indústria.</p>
+
+                                <div class="section-divider"><span>📝 ATIVIDADES DA AULA 2</span></div>
+                            `,
+                            questoes: [
+                                {
+                                    pergunta: 'Sobre o conceito de pensamento computacional:\nI. Saber navegar na internet ou enviar e-mails caracteriza pensamento computacional.\nII. Publicar conteúdo na web caracteriza pensamento computacional.\nIII. O pensamento computacional está no aumento real da condição cognitiva e operacional do ser humano.',
+                                    opcoes: ['Só I', 'Só II', 'Só III', 'I e II', 'I, II e III'],
+                                    correta: 2,
+                                    explicacao: 'Segundo Blikstein, meras habilidades digitais (navegar, enviar e-mail, publicar conteúdo) não caracterizam pensamento computacional. O que o define é usar computadores/redes para AMPLIAR produtividade, inventividade e criatividade.'
+                                },
+                                {
+                                    pergunta: 'Existe um pilar principal entre os quatro pilares do pensamento computacional?',
+                                    opcoes: [
+                                        'Sim, a decomposição.',
+                                        'Não, existem dois principais (padrões e algoritmos).',
+                                        'Sim, a abstração.',
+                                        'Não, todos os pilares são igualmente importantes (como as pernas de uma mesa).',
+                                        'Sim, os algoritmos.'
+                                    ],
+                                    correta: 3,
+                                    explicacao: 'Os quatro pilares (decomposição, abstração, reconhecimento de padrões e algoritmos) se completam e trabalham em conjunto. Não há hierarquia entre eles — tire um e a "mesa cai".'
+                                },
+                                {
+                                    pergunta: 'Podemos identificar como atividade(s) da Economia Criativa:\nI. Design (interiores, gráfico, moda, joias, brinquedos).\nII. Novas mídias (software, games, conteúdo digital).\nIII. Expressões culturais tradicionais (artesanato, festivais).',
+                                    opcoes: ['Só I', 'Só II', 'I e III', 'I e II', 'I, II e III'],
+                                    correta: 4,
+                                    explicacao: 'A Economia Criativa (UNCTAD) engloba atividades que nascem da criatividade, habilidade e talento individual, gerando empregos e riqueza por propriedade intelectual — incluindo todas as três listadas, além de artes, audiovisual, patrimônio, serviços criativos etc.'
+                                },
+                                {
+                                    pergunta: 'Sobre o uso da tecnologia no Direito:\nI. Já existem sistemas que interpretam textos, identificam tendências e apoiam decisões.\nII. Só nas próximas décadas haverá softwares que fazem buscas inteligentes na literatura jurídica.\nIII. O que tem atrasado o uso de softwares no Direito é o aumento dos custos com pessoal.',
+                                    opcoes: ['Só I', 'II e III', 'Só II', 'I e III', 'I, II e III'],
+                                    correta: 0,
+                                    explicacao: 'Busca inteligente na literatura jurídica já existe (ex.: ROSS Intelligence, 2016); softwares REDUZEM custos e tempo de pesquisa, ao contrário do que diz a III. A I é correta: sistemas já apoiam advogados na leitura e análise.'
+                                },
+                                {
+                                    pergunta: 'Qual é o principal objetivo de incluir o pensamento computacional no currículo da educação básica?',
+                                    opcoes: [
+                                        'Estimular crianças a escolherem carreiras de TI.',
+                                        'Ocupar o tempo das crianças.',
+                                        'Desenvolver o raciocínio das crianças para a solução de problemas complexos (e cidadania na sociedade digital).',
+                                        'Estimular o gosto pela Matemática.',
+                                        'Aprimorar habilidades para jogos.'
+                                    ],
+                                    correta: 2,
+                                    explicacao: 'O pensamento computacional, desde cedo, desenvolve a habilidade de resolver problemas complexos — e, segundo Blikstein, visa principalmente à construção de competências fundamentais para o exercício da cidadania em uma sociedade digital.'
+                                },
+                                {
+                                    pergunta: 'Qual é a justificativa para integrar o pensamento computacional ao ensino de Engenharia?',
+                                    opcoes: [
+                                        'A Engenharia da Computação é um mercado potencial.',
+                                        'Os sistemas de Engenharia estão cada vez mais complexos, e precisamos de engenheiros qualificados que saibam aplicar ferramentas computacionais.',
+                                        'Os alunos precisam apenas de conhecimentos básicos de informática.',
+                                        'Cumprir a carga horária obrigatória de laboratórios.',
+                                        'Serve apenas para Engenharia de Computação e Telecomunicações.'
+                                    ],
+                                    correta: 1,
+                                    explicacao: 'Com o rápido desenvolvimento tecnológico, a Engenharia precisa acompanhar a complexidade dos sistemas. Ferramentas como MATLAB, LEGO Mindstorms e ambientes de simulação dão mais exatidão e segurança aos projetos — e isso serve para TODAS as engenharias.'
+                                }
+                            ]
+                        }
+                    ]
+                },
+            {
+                id: 'banco-dados',
+                nome: 'Banco de Dados',
+                icone: '🗄️',
+                descricao: 'Modelagem, SQL e SGBDs',
+                aulas: [
+                    {
+                        id: 'aula1',
+                        numero: 1,
+                        titulo: 'O que é um Banco de Dados',
+                        icone: '📚',
+                        conteudo: `
+                            <h2>AULA 1 - O QUE É UM BANCO DE DADOS</h2>
+                            <p>Olá! Vamos estudar banco de dados do zero. Não se preocupe se você nunca programou: este texto foi feito para quem está começando. Ao longo dele, vou usar exemplos do dia a dia para você entender e, principalmente, fixar cada ideia.</p>
+
+                            <h3>O que você vai aprender aqui:</h3>
+                            <ul>
+                                <li>De onde vieram os bancos de dados e como essa tecnologia evoluiu.</li>
+                                <li>O que caracteriza um sistema de banco de dados (SBD).</li>
+                                <li>Como é montado, por dentro, um sistema gerenciador de banco de dados (SGBD).</li>
+                            </ul>
+
+                            <div class="section-divider"><span>PARTE 1 — HISTÓRIA E TECNOLOGIAS</span></div>
+
+                            <h3>1.1 O que é um banco de dados, afinal?</h3>
+                            <p>Em uma frase: <strong>banco de dados é uma coleção de dados que têm relação entre si.</strong></p>
+                            <p>Pense num exemplo simples: uma agenda de contatos no seu celular. Ela guarda nomes, telefones e e-mails. Esses dados estão relacionados: cada telefone pertence a um nome específico. Isso é um banco de dados!</p>
+                            <p>Os "dados" são fatos que podem ser registrados e que têm algum significado. Por exemplo: "Maria", "1199999-8888", "maria@email.com" são dados. Juntos, organizados, eles formam um banco de dados de contatos.</p>
+                            <div class="highlight-box">
+                                <p><strong>Para fixar:</strong> banco de dados = dados relacionados, guardados de forma organizada.</p>
+                            </div>
+
+                            <h3>1.2 Como tudo começou</h3>
+                            <p><strong>Charles Babbage (1791–1871)</strong> é considerado o pioneiro da computação. No século XIX, ele projetou a Máquina Diferencial N.º 1, uma das primeiras calculadoras automáticas.</p>
+                            <p>Na década de 1940, o computador nasceu com um objetivo principal: fazer cálculos matemáticos complexos.</p>
+                            <p><strong>John von Neumann (1903–1957)</strong> mudou isso. Ele criou uma arquitetura em que os programas e os dados ficam guardados no mesmo espaço de memória. Isso é o que chamamos de "programa armazenado".</p>
+                            <div class="tip-box">
+                                <p><strong>Arquitetura de von Neumann:</strong> o jeito de montar o computador em que a memória guarda tanto as instruções (programas) quanto as informações (dados).</p>
+                            </div>
+
+                            <h3>1.3 O disco rígido (HD): guardar dados permanentemente</h3>
+                            <p>Em 1957, a IBM inventou o disco magnético — o HD. O HD permite <strong>acesso direto</strong>: você "pula" direto para o dado que quer, como escolher a faixa de um CD sem ouvir as anteriores.</p>
+                            <div class="tip-box">
+                                <p><strong>Para fixar:</strong> HD = memória secundária que guarda dados de forma permanente e permite acesso direto (rápido).</p>
+                            </div>
+
+                            <h3>1.4 O problema do sistema de arquivos</h3>
+                            <p>Antes dos SGBDs, cada programa tinha que saber manipular os arquivos diretamente. Isso gerava:</p>
+                            <ul>
+                                <li>Código repetido em todos os programas;</li>
+                                <li>Se o formato mudasse, todos os programas tinham que ser alterados;</li>
+                                <li>Dados duplicados e inconsistentes.</li>
+                            </ul>
+                            <div class="warning-box">
+                                <p><strong>Analogia:</strong> imagine uma empresa onde cada funcionário tem sua própria gaveta de fichas de clientes. Se um cliente muda de telefone, cada um tem que atualizar sua gaveta — e sempre alguém esquece.</p>
+                            </div>
+
+                            <h3>1.5 Nasce o SGBD</h3>
+                            <p>A partir de 1960, a solução foi criar um software especializado que fica no meio entre o programa e o disco: o <strong>SGBD — Sistema Gerenciador de Banco de Dados</strong>.</p>
+                            <div class="tip-box">
+                                <p><strong>Analogia:</strong> o SGBD é como um bibliotecário. Em vez de cada pessoa entrar no depósito sozinha, todos pedem ao bibliotecário, que sabe exatamente onde está cada livro.</p>
+                            </div>
+                            <div class="highlight-box">
+                                <p><strong>Não confunda! (isso cai muito em prova)</strong></p>
+                                <p>🔹 <strong>SBD (Sistema de Banco de Dados):</strong> o conjunto completo — SGBD + programas de aplicação + banco de dados em si.</p>
+                                <p>🔹 <strong>SGBD (Sistema Gerenciador de BD):</strong> é apenas o software que gerencia os dados. É uma parte do SBD.</p>
+                            </div>
+
+                            <h3>1.6 A grande virada: o modelo relacional</h3>
+                            <p>Na virada de 1960 para 1970, o matemático <strong>Edgar Frank Codd</strong>, da IBM, publicou um artigo que mudou tudo: representar os dados como <strong>tabelas</strong>.</p>
+                            <div class="tip-box">
+                                <p><strong>Para fixar:</strong> no modelo relacional, a estrutura de dados é a <strong>tabela</strong> (chamada "relação" na matemática). Qualquer pessoa entende uma tabela — é essa simplicidade que explica seu sucesso.</p>
+                            </div>
+                            <p>Junto com o modelo relacional surgiu a <strong>SQL (Structured Query Language)</strong> — a linguagem usada para consultar e manipular os dados.</p>
+                            <div class="warning-box">
+                                <p><strong>Não confunda! SQL é a linguagem.</strong> Oracle, MySQL, SQL Server e PostgreSQL são produtos (SGBDs) que usam essa linguagem. (Pegadinha clássica de prova!)</p>
+                            </div>
+
+                            <h3>Principais SGBDs relacionais:</h3>
+                            <ul>
+                                <li><strong>Oracle</strong> — líder do mercado global;</li>
+                                <li><strong>MySQL</strong> — famoso pela pilha LAMP (Linux + Apache + MySQL + PHP);</li>
+                                <li><strong>SQL Server</strong> — da Microsoft;</li>
+                                <li><strong>PostgreSQL</strong> — considerado o SGBD open source mais avançado do mundo.</li>
+                            </ul>
+
+                            <h3>1.7 Outros modelos: os bancos NoSQL</h3>
+                            <p><strong>NoSQL ("not only SQL" = "não somente SQL")</strong> são bancos que não usam o modelo relacional. Exemplos:</p>
+                            <ul>
+                                <li><strong>Chave-valor:</strong> Redis, Amazon DynamoDB;</li>
+                                <li><strong>Documentos:</strong> MongoDB;</li>
+                                <li><strong>Grafos:</strong> Neo4J;</li>
+                                <li><strong>Colunar:</strong> Cassandra, HBase.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <p><strong>Para fixar:</strong> NoSQL = bancos com modelos diferentes do relacional, usados para big data e aplicações modernas.</p>
+                            </div>
+
+                            <div class="section-divider"><span>PARTE 2 — CARACTERÍSTICAS DO SBD</span></div>
+
+                            <h3>2.1 Independência de dados</h3>
+                            <p>A arquitetura de três esquemas (ANSI/SPARC) separa o banco em três níveis:</p>
+                            <ul>
+                                <li><strong>Nível externo:</strong> as visões que cada usuário enxerga;</li>
+                                <li><strong>Nível conceitual:</strong> a estrutura lógica completa (tabelas, relacionamentos);</li>
+                                <li><strong>Nível interno:</strong> como os dados estão fisicamente guardados no disco.</li>
+                            </ul>
+                            <p>Isso gera dois tipos de independência:</p>
+                            <ul>
+                                <li><strong>Independência lógica:</strong> posso alterar o esquema conceitual sem afetar os programas;</li>
+                                <li><strong>Independência física:</strong> posso mudar o armazenamento sem afetar a estrutura lógica.</li>
+                            </ul>
+
+                            <h3>2.2 ACID: as 4 propriedades das transações</h3>
+                            <p>Uma transação é uma sequência de operações que deve ser executada "tudo ou nada". O SGBD garante 4 propriedades:</p>
+                            <ul>
+                                <li><strong>Atomicidade:</strong> ou executa tudo, ou não executa nada;</li>
+                                <li><strong>Consistência:</strong> leva o banco de um estado válido para outro estado válido;</li>
+                                <li><strong>Isolamento:</strong> transações simultâneas não interferem entre si;</li>
+                                <li><strong>Durabilidade:</strong> uma vez confirmada, fica gravada permanentemente.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <p><strong>Para fixar:</strong> ACID = Atomicidade, Consistência, Isolamento, Durabilidade. Pense na transferência bancária!</p>
+                            </div>
+
+                            <div class="section-divider"><span>📝 ATIVIDADES DA AULA 1</span></div>
+                        `,
+                        questoes: [
+                            {
+                                pergunta: 'Questão 1 — A arquitetura de von Neumann é caracterizada por:',
+                                opcoes: [
+                                    'Uma máquina digital poder guardar seus programas no mesmo espaço de memória que os dados, podendo assim manipular esses programas.',
+                                    'O surgimento do armazenamento em disco rígido.',
+                                    'A execução em lotes dos dados.',
+                                    'A coleção de dados relacionados.',
+                                    'O surgimento dos bancos de dados.'
+                                ],
+                                correta: 0,
+                                explicacao: 'A marca registrada de von Neumann é o programa armazenado junto com os dados na memória. As outras opções são coisas importantes, mas não definem a arquitetura dele.'
+                            },
+                            {
+                                pergunta: 'Questão 2 — Considerando a mesma linguagem, mesmo volume de dados e mesmo hardware, qual modelo é mais eficiente em velocidade?',
+                                opcoes: [
+                                    'Modelo monolítico, com os dados junto dos programas.',
+                                    'Sistema de arquivos.',
+                                    'Sistema de banco de dados (com SGBD).',
+                                    'Sistema na Web (dados na nuvem).',
+                                    'Modelo monolítico com dados na nuvem.'
+                                ],
+                                correta: 0,
+                                explicacao: 'Se tudo está junto, o processamento acontece direto na memória RAM, que é muito mais rápida que acessar o disco ou a nuvem. Mas atenção: "mais eficiente em velocidade" não significa "melhor" — o modelo monolítico perde em organização e manutenção.'
+                            },
+                            {
+                                pergunta: 'Questão 3 — Qual o modelo de banco de dados cuja estrutura é baseada na função matemática chamada relação?',
+                                opcoes: ['Rede', 'Hierárquico', 'Relacional', 'Árvore', 'Orientado a objetos'],
+                                correta: 2,
+                                explicacao: 'A relação é a base do modelo relacional de Codd. Informalmente, chamamos as relações de tabelas.'
+                            },
+                            {
+                                pergunta: 'Questão 4 — Qual a linguagem de consulta que virou sinônimo do modelo relacional?',
+                                opcoes: ['PostgreSQL', 'MySQL', 'SQL', 'SQL Server', 'Oracle'],
+                                correta: 2,
+                                explicacao: 'PostgreSQL, MySQL, SQL Server e Oracle são produtos (SGBDs). SQL é a linguagem usada para consultar e manipular os dados.'
+                            },
+                            {
+                                pergunta: 'Questão 5 — Qual SGBD implementa os modelos relacional, documentos, grafos e RDF?',
+                                opcoes: ['PostgreSQL', 'MySQL', 'Oracle', 'SQL Server', 'MongoDB'],
+                                correta: 2,
+                                explicacao: 'O Oracle é o SGBD "multimodelo" mais completo dessa lista, implementando modelos relacional, documentos, grafos e RDF.'
+                            },
+                            {
+                                pergunta: 'Questão 6 — São características que diferenciam SBD de sistemas de arquivos:\nI. Natureza autocontida dos dados.\nII. Volatilidade dos dados.\nIII. Abstração de dados.',
+                                opcoes: [
+                                    'I e II',
+                                    'I e III',
+                                    'II e III',
+                                    'Todas',
+                                    'Só a III'
+                                ],
+                                correta: 1,
+                                explicacao: 'Natureza autocontida (metadados junto com os dados) e abstração de dados são características do SBD. A "volatilidade" não é característica — pelo contrário, o banco busca persistência (dados que ficam guardados).'
+                            },
+                            {
+                                pergunta: 'Questão 7 — Qual alternativa NÃO é uma funcionalidade dos SBDs?',
+                                opcoes: [
+                                    'Representação de relacionamentos entre dados.',
+                                    'Controle de redundância.',
+                                    'Compartilhamento de dados.',
+                                    'Armazenamento de dados estáticos.',
+                                    'Múltiplas interfaces.'
+                                ],
+                                correta: 3,
+                                explicacao: 'Guardar dados estáticos é justamente uma situação em que NÃO se recomenda banco de dados. As demais são funcionalidades típicas do SBD.'
+                            },
+                            {
+                                pergunta: 'Questão 8 — Quem são os beneficiários do sistema e quem define políticas sobre os recursos de dados?',
+                                opcoes: [
+                                    'Usuários finais e administrador de dados.',
+                                    'Administrador de aplicações e administrador de BD.',
+                                    'Usuários finais e administrador de BD.',
+                                    'Usuários finais e administrador de aplicações.',
+                                    'Administrador de dados e administrador de aplicações.'
+                                ],
+                                correta: 0,
+                                explicacao: 'Os usuários finais são quem se beneficia dos sistemas; o administrador de dados define políticas, regras e padrões de dados (papel gerencial).'
+                            },
+                            {
+                                pergunta: 'Questão 9 — Qual componente do SBD fornece a descrição dos dados (informações sobre os dados)?',
+                                opcoes: ['SGBD', 'Metadados', 'Banco de dados', 'Programas de aplicação', 'Usuários'],
+                                correta: 1,
+                                explicacao: 'Metadados = dados que descrevem dados. São a "descrição" que organiza os dados (nome dos campos, tipos, estrutura).'
+                            },
+                            {
+                                pergunta: 'Questão 10 — Qual é o módulo principal do SGBD, por onde passam todas as consultas e transações?',
+                                opcoes: ['Compilador da LMD', 'Catálogo de metadados', 'Otimizador de consulta', 'Processador de runtime', 'Transações compiladas'],
+                                correta: 3,
+                                explicacao: 'O processador de runtime (runtime engine) recebe todas as requisições e as processa — ele é o coração do SGBD.'
+                            },
+                            {
+                                pergunta: 'Questão 11 — Qual o modelo de computação do PostgreSQL (e da maioria dos SGBDs empresariais)?',
+                                opcoes: ['Centralizado', 'Pessoal', 'Cliente/Servidor', 'Stand alone', 'Monolítico'],
+                                correta: 2,
+                                explicacao: 'O modelo cliente/servidor separa o back end (servidor PostgreSQL, que gerencia os dados) do front end (aplicações clientes como pgAdmin ou um servidor web).'
+                            }
+                        ]
+                    },
+                    {
+                        id: 'aula2',
+                        numero: 2,
+                        titulo: 'Modelagem Conceitual',
+                        icone: '📊',
+                        conteudo: `
+                            <h2>AULA 2 - MODELAGEM CONCEITUAL</h2>
+                            <div class="warning-box">
+                                <p><strong>💡 Dica:</strong> É recomendável reproduzir os exemplos práticos usando uma ferramenta para modelagem de dados. Uma opção gratuita é o <strong>brModelo</strong>. Nesta etapa, o trabalho é pensar e desenhar, não programar!</p>
+                            </div>
+
+                            <h3>Objetivos de aprendizagem</h3>
+                            <ul>
+                                <li>Identificar as etapas de um projeto de banco de dados.</li>
+                                <li>Reconhecer os elementos do diagrama de entidade e relacionamento.</li>
+                                <li>Compreender a modelagem de entidades e relacionamentos.</li>
+                                <li>Compreender a modelagem de atributos.</li>
+                            </ul>
+
+                            <h3>Introdução — por onde começamos?</h3>
+                            <p>A tentação de quem nunca estudou é abrir um programa e "criar tabelas". Isso quase sempre dá errado! Antes disso, precisamos <strong>entender o negócio</strong>.</p>
+                            <p>Um banco de dados representa algum aspecto do mundo real, chamado de <strong>minimundo</strong> ou universo de discurso. Modelar é escolher o que importa e desenhar isso de forma que outras pessoas entendam.</p>
+
+                            <div class="section-divider"><span>1. PROJETO DE BANCO DE DADOS</span></div>
+
+                            <h3>1.1 As quatro fases (análogo a construir uma casa)</h3>
+                            <ol>
+                                <li><strong>Levantamento de requisitos</strong> = briefing com o morador (o que ele precisa);</li>
+                                <li><strong>Projeto conceitual</strong> = projeto arquitetônico (plantas que qualquer um entende, ainda sem detalhes técnicos);</li>
+                                <li><strong>Projeto lógico</strong> = projeto estrutural (agora pensando em vigas, lajes — no mundo dos bancos, as tabelas e relações);</li>
+                                <li><strong>Projeto físico</strong> = execução da obra (implementação no SGBD escolhido, tipos concretos, índices).</li>
+                            </ol>
+                            <div class="highlight-box">
+                                <p><strong>Ponto de prova:</strong> O modelo conceitual é <strong>independente de tecnologia, implementação ou dispositivos de armazenamento</strong>. Se a questão falar isso, a resposta é conceitual!</p>
+                            </div>
+
+                            <h3>1.2 Levantamento de requisitos</h3>
+                            <p>Requisito é uma necessidade declarada: "o sistema precisa guardar X", "precisamos saber Y". Entrevistamos usuários para entender o funcionamento do negócio.</p>
+                            <p><strong>Dica para ler requisitos:</strong> substantivos são candidatos a entidade; adjetivos/dados são candidatos a atributo; frases de quantidade ("um cliente pode fazer vários cursos") indicam cardinalidade.</p>
+
+                            <h3>1.3 Projeto conceitual e o DER</h3>
+                            <p>O projeto conceitual constrói um modelo de alto nível usando o <strong>Diagrama de Entidade e Relacionamento (DER)</strong>. Três elementos essenciais:</p>
+                            <ul>
+                                <li><strong>Entidade (retângulo):</strong> conjunto de objetos sobre os quais queremos guardar informação (ex: CLIENTE, CURSO).</li>
+                                <li><strong>Relacionamento (losango):</strong> associação entre entidades (ex: INSCRICAO liga CLIENTE a CURSO).</li>
+                                <li><strong>Atributo:</strong> propriedade de cada ocorrência (ex: nome, CPF, data de inscrição).</li>
+                            </ul>
+                            <div class="tip-box">
+                                <p><strong>Importante:</strong> o DER é a "língua comum" entre quem entende do negócio e quem vai implementar. Ele força decisões explícitas que evitam mal-entendidos.</p>
+                            </div>
+
+                            <h3>1.4 Esquema vs Instância</h3>
+                            <p><strong>Esquema:</strong> a estrutura, o "molde" (CLIENTE tem id, nome, CPF). <strong>Instância (ou ocorrência):</strong> os dados concretos ("Maria, CPF 123...").</p>
+
+                            <div class="section-divider"><span>2. ELEMENTOS DO DER</span></div>
+
+                            <h3>2.1 Cardinalidade de relacionamentos</h3>
+                            <p>A cardinalidade é um par (mínima, máxima) que responde:</p>
+                            <ul>
+                                <li><strong>Mínima 0</strong> = participação opcional;</li>
+                                <li><strong>Mínima 1</strong> = participação obrigatória;</li>
+                                <li><strong>Máxima 1</strong> = no máximo um;</li>
+                                <li><strong>Máxima N</strong> = vários.</li>
+                            </ul>
+                            <p>Combinando as máximas, temos os tipos famosos:</p>
+                            <ul>
+                                <li><strong>1:1</strong> — um para um;</li>
+                                <li><strong>1:N (ou N:1)</strong> — um para muitos (o mais comum no relacional implementado);</li>
+                                <li><strong>N:N</strong> — muitos para muitos (no lógico vira tabela extra).</li>
+                            </ul>
+                            <div class="tip-box">
+                                <p><strong>Como estudar cardinalidade sem chorar:</strong> Pegue CLIENTE e PEDIDO. Um pedido sem cliente? Não (mínima 1). Um cliente sem pedido? Sim (mínima 0). Um cliente com vários pedidos? Sim (N). Um pedido com vários clientes? Não (máxima 1). Resultado: CLIENTE 1 — N PEDIDO.</p>
+                            </div>
+
+                            <h3>2.2 Autorrelacionamento</h3>
+                            <p>Uma entidade se relacionando com ela mesma. Exemplo: na entidade FUNCIONARIO, o relacionamento GERENCIA liga um funcionário-chefe a funcionários-subordinados. É importante nomear os <strong>papéis</strong> de cada lado.</p>
+
+                            <h3>2.3 Relacionamento ternário</h3>
+                            <p>Envolve <strong>três entidades</strong> ao mesmo tempo num único losango. Exemplo: ORIENTACAO ligando PROJETO, ALUNO e DOCENTE.</p>
+
+                            <h3>2.4 Atributos</h3>
+                            <p>Classificações importantes:</p>
+                            <ul>
+                                <li><strong>Obrigatório vs Opcional:</strong> pode ser nulo?</li>
+                                <li><strong>Monovalorado vs Multivalorado:</strong> um ou vários valores por ocorrência? (ex: vários telefones para um cliente);</li>
+                                <li><strong>Simples vs Composto:</strong> pode ser quebrado em partes menores? (ex: endereço = logradouro + número + CEP + cidade);</li>
+                                <li><strong>Identificador:</strong> atributo que distingue cada ocorrência (conceitualmente é o ancestral da chave primária).</li>
+                            </ul>
+                            <div class="warning-box">
+                                <p><strong>Convenção da disciplina:</strong> quando não houver cardinalidade explícita em atributos, considere-os <strong>obrigatórios e monovalorados (1,1)</strong>. Isso cai em prova!</p>
+                            </div>
+
+                            <h3>2.5 Especialização/Generalização (herança)</h3>
+                            <p>É a relação <strong>"é-um"</strong> (is-a). Exemplo: DOCENTE é um FUNCIONARIO; ANALISTA é um FUNCIONARIO. FUNCIONARIO é a entidade genérica; DOCENTE e ANALISTA são especializações.</p>
+                            <p>Classificações:</p>
+                            <ul>
+                                <li><strong>Total (t):</strong> todo funcionário cai em algum subtipo;</li>
+                                <li><strong>Parcial (p):</strong> pode existir funcionário "genérico" sem especialização;</li>
+                                <li><strong>Exclusiva (x) / Disjunta:</strong> ou é docente, ou é analista, nunca os dois;</li>
+                                <li><strong>Compartilhada (c) / Sobreposta:</strong> a mesma ocorrência pode aparecer em mais de um subtipo.</li>
+                            </ul>
+
+                            <h3>2.6 Entidade associativa</h3>
+                            <p>Representada por um losango dentro de um retângulo. É o caso em que o próprio relacionamento "ganha vida" e precisa ser tratado como entidade para poder se relacionar com terceiros. Conceitualmente, ela também é o que acontece com um N:N que tem atributos próprios ou que precisa ligar-se a outras entidades.</p>
+
+                            <h3>2.7 Entidade fraca</h3>
+                            <p>Depende de outra entidade para existir/identificar-se. Ex: DEPENDENTE não existe sem um FUNCIONARIO.</p>
+
+                            <h3>2.8 Entidade isolada</h3>
+                            <p>Não apresenta relacionamento com outras entidades. Pode ser correta quando ela representa propriedades globais do sistema (ex: dados da INSTITUICAO dona do sistema, quando só existe uma).</p>
+
+                            <h3>2.9 Quando manter histórico</h3>
+                            <p>Se o negócio precisa lembrar de mudanças ao longo do tempo (ex: "em que departamento este professor estava em 2020?"), a cardinalidade máxima deve ser N e deve haver datas no relacionamento. Sem histórico, modelamos só a foto do agora (máxima 1).</p>
+
+                            <div class="section-divider"><span>3. MODELO ER ESTENDIDO</span></div>
+
+                            <h3>3.1 Atributo vs Entidade vs Especialização</h3>
+                            <div class="tip-box">
+                                <p><strong>Quadro de decisão (use em prova):</strong></p>
+                                <ul>
+                                    <li>É só um valor sem identidade própria? → <strong>Atributo</strong></li>
+                                    <li>Tem vários valores na mesma ocorrência? → Desconfie; quase sempre <strong>entidade ligada</strong> (1:N)</li>
+                                    <li>Pode faltar? → Opcional; muitos opcionais juntos podem indicar <strong>especialização</strong></li>
+                                    <li>Quebra em pedaços com sentido? → Composto, ou entidade</li>
+                                    <li>Dá para calcular ou obter navegando? → Redundante: tire do DER</li>
+                                    <li>Tem atributos extras ou se relaciona com terceiros? → <strong>Entidade</strong> (ou especialização se for "é-um")</li>
+                                </ul>
+                            </div>
+
+                            <h3>3.2 Restrições semânticas</h3>
+                            <p>Nem tudo cabe em símbolos do DER. Regras como "a data de fim de uma orientação deve ser maior que a data de início" são escritas em linguagem natural ao lado do diagrama — são as restrições semânticas.</p>
+
+                            <h3>3.3 Equivalência de modelos e N:N → entidade</h3>
+                            <p>Todo relacionamento N:N pode ser transformado em entidade. A nova entidade se relaciona com as participantes originais com cardinalidade (1,1), e herda os atributos do relacionamento antigo. Isso é a ponte conceitual → lógico.</p>
+
+                            <div class="section-divider"><span>📝 ATIVIDADES DA AULA 2</span></div>
+                        `,
+                        questoes: [
+                            {
+                                pergunta: 'Atividade 1 — O projeto de banco de dados é dividido em etapas. Uma delas envolve a construção de um modelo que descreve a estrutura, com objetos, atributos e relacionamentos, independentemente de limitações tecnológicas, implementação ou dispositivos de armazenamento. Esse modelo é:',
+                                opcoes: ['Conceitual', 'Lógico', 'Físico', 'Prescritivo', 'Descritivo'],
+                                correta: 0,
+                                explicacao: 'O modelo conceitual tem foco em uma visão abstrata, ocultando detalhes de implementação. "Lógico" já pensa em tabelas; "Físico" já pensa no SGBD concreto; "Prescritivo" e "Descritivo" não são nomes padrão dessas etapas.'
+                            },
+                            {
+                                pergunta: 'Atividade 2 — Qual é a finalidade principal do modelo lógico em um banco de dados?',
+                                opcoes: [
+                                    'Descrever a estrutura física do banco de dados.',
+                                    'Representar os procedimentos de segurança aplicados ao banco.',
+                                    'Definir a estrutura organizacional da equipe de administração.',
+                                    'Descrever como os dados serão organizados, relacionados e acessados no banco.',
+                                    'Documentar as decisões de negócios que levaram à criação do banco.'
+                                ],
+                                correta: 3,
+                                explicacao: 'O modelo lógico identifica tabelas, relacionamentos, chaves primárias, chaves estrangeiras e outros elementos da estrutura lógica, descrevendo como os dados serão organizados e relacionados.'
+                            },
+                            {
+                                pergunta: 'Atividade 3 — Sobre as etapas do projeto de banco de dados, assinale a alternativa correta:',
+                                opcoes: [
+                                    'Projeto conceitual — é construído em função de características técnicas de algum SGBD.',
+                                    'Projeto lógico — cria um modelo físico de dados a partir do conceitual, independente do SGBD.',
+                                    'Projeto físico — descreve detalhes sobre tipos de dados e tamanho de colunas; é dependente da escolha de um SGBD.',
+                                    'Projeto físico — possui total independência de um SGBD específico.',
+                                    'Projeto lógico — depende exclusivamente do SGBD a ser utilizado.'
+                                ],
+                                correta: 2,
+                                explicacao: 'No projeto físico, a partir da escolha de um SGBD, definem-se detalhes de mais baixo nível, dependentes das funcionalidades do produto: tipos concretos, tamanhos, índices, PK/FK marcadas etc.'
+                            },
+                            {
+                                pergunta: 'Atividade 4 — Durante o projeto conceitual de um sistema para concurso público, há um DER com CANDIDATO ligado a EXAME pelo relacionamento INSCRICAO (com atributo DATA no relacionamento). Considerando que um candidato pode se inscrever em vários exames, é correto afirmar:',
+                                opcoes: [
+                                    'Para adicionar informações do EXAME sobre provas, deve-se criar um atributo simples em CANDIDATO.',
+                                    'O atributo DATA está incorreto, pois não é permitido modelar atributo em relacionamento.',
+                                    'De acordo com o modelo, um CANDIDATO pode inscrever-se em mais de um EXAME.',
+                                    'Há um relacionamento ternário, pois estão envolvidos três objetos: CANDIDATO, INSCRICAO e EXAME.',
+                                    'Temos um relacionamento um para vários.'
+                                ],
+                                correta: 2,
+                                explicacao: 'Se a cardinalidade máxima ao lado de EXAME for N (um candidato pode se inscrever em vários exames), isso é o que o modelo representa. Atributos em relacionamento são permitidos (data da inscrição é um exemplo clássico); INSCRICAO é um relacionamento binário, não uma entidade; e se ambos lados forem N, é N:N, não 1:N.'
+                            },
+                            {
+                                pergunta: 'Atividade 5 — A principal finalidade da relação de especialização/generalização é:',
+                                opcoes: [
+                                    'Reduzir a quantidade de dados armazenados.',
+                                    'Melhorar o desempenho das consultas.',
+                                    'Organizar os dados em tabelas relacionadas.',
+                                    'Representar hierarquias de classes e suas relações no mundo real (relação "é-um").',
+                                    'Garantir a integridade referencial entre as tabelas.'
+                                ],
+                                correta: 3,
+                                explicacao: 'Especialização/generalização representa hierarquias do mundo real (o "é-um"), com herança de propriedades entre superclasse e subclasses.'
+                            },
+                            {
+                                pergunta: 'Atividade 6 — Entre as extensões do modelo ER, a entidade associativa tem a finalidade principal de:',
+                                opcoes: [
+                                    'Melhorar o desempenho das consultas.',
+                                    'Evitar a duplicação de dados.',
+                                    'Representar uma tabela intermediária em relacionamentos muitos-para-muitos, podendo ainda relacionar-se com outras entidades.',
+                                    'Organizar os dados em tabelas relacionadas.',
+                                    'Garantir a integridade referencial entre as tabelas.'
+                                ],
+                                correta: 2,
+                                explicacao: 'Uma entidade associativa permite que um relacionamento N:N também se comporte como entidade, podendo ligar-se a outras entidades — é a ponte que se torna o ponto central de novas relações.'
+                            },
+                            {
+                                pergunta: 'Atividade 7 — Como podemos identificar entidades em um minimundo?',
+                                opcoes: [
+                                    'Identificando apenas objetos tangíveis.',
+                                    'Examinando os processos de negócio realizados.',
+                                    'Identificando somente os eventos importantes.',
+                                    'Analisando as características específicas dos usuários.',
+                                    'Identificando tanto objetos tangíveis quanto conceitos abstratos relevantes.'
+                                ],
+                                correta: 4,
+                                explicacao: 'Entidade não é só o que se pega com a mão (aluno, produto). Pedido, turma, contrato, inscrição são abstratos e são entidades de primeira linha. O critério é ser um conjunto de objetos sobre os quais se deseja manter informações.'
+                            },
+                            {
+                                pergunta: 'Atividade 8 — Quando é apropriado utilizar um atributo no lugar de uma entidade?',
+                                opcoes: [
+                                    'Quando o atributo contém informações que podem ser calculadas a partir de outros dados.',
+                                    'Sempre que houver necessidade de armazenar dados complexos e extensos.',
+                                    'Quando o atributo representa uma entidade independente, com características e relacionamentos próprios.',
+                                    'Quando se deseja manter a simplicidade do modelo e o atributo não representa uma entidade distinta com identidade própria.',
+                                    'Quando o atributo descreve um relacionamento entre duas entidades.'
+                                ],
+                                correta: 3,
+                                explicacao: 'Usa-se atributo para manter o modelo simples quando a informação é só um valor, sem vida própria nem relacionamentos a mais. Cor da camiseta é atributo; editora que tem CNPJ, contratos e livros é entidade.'
+                            },
+                            {
+                                pergunta: 'Atividade 9 — O que caracteriza um atributo como opcional?',
+                                opcoes: [
+                                    'É utilizado apenas em consultas específicas.',
+                                    'Não é aplicável; todos os atributos devem ser obrigatórios.',
+                                    'Seu valor pode ser nulo, ou seja, não é obrigatório para todos os registros.',
+                                    'Atributos são sempre opcionais por padrão.',
+                                    'A obrigatoriedade é determinada pela posição na tabela.'
+                                ],
+                                correta: 2,
+                                explicacao: 'Opcional = pode ser nulo; nem toda ocorrência precisa ter valor. Isso é flexibilidade consciente, não bagunça. Na convenção da disciplina, sem marcação explícita, o atributo é obrigatório (1,1).'
+                            }
+                        ]
+                    },
+                    {
+                        id: 'aula3',
+                        numero: 3,
+                        titulo: 'Modelagem Física de Banco de Dados',
+                        icone: '💾',
+                        conteudo: `
+                            <h2>AULA 3 - MODELAGEM FÍSICA DE BANCO DE DADOS</h2>
+
+                            <div class="section-divider"><span>1. ELEMENTOS DO MODELO RELACIONAL</span></div>
+
+                            <h3>1.1 Tabelas, linhas e colunas</h3>
+                            <p>No modelo relacional, <strong>relação</strong> é o termo acadêmico para o que informalmente chamamos de <strong>tabela</strong>. O banco de dados é visto como uma coleção de relações.</p>
+                            <ul>
+                                <li><strong>Tuplas:</strong> são as linhas de uma tabela (cada registro);</li>
+                                <li><strong>Atributos:</strong> são as colunas ou campos;</li>
+                                <li>Toda tabela deve ter <strong>nome único</strong> no banco;</li>
+                                <li>Colunas são <strong>monovaloradas</strong> (um só valor por célula) e <strong>atômicas</strong> (não há subdivisões na própria coluna — isso é a 1ª Forma Normal).</li>
+                            </ul>
+                            <p>Cada coluna tem um <strong>domínio</strong> (tipo de dado): caractere/texto, numérico, data, booleano etc. Uma coluna pode ser <strong>opcional</strong> (admite NULL) ou obrigatória.</p>
+
+                            <h3>1.2 Chave primária (PK)</h3>
+                            <p>Chave primária é a coluna (ou conjunto de colunas) que identifica <strong>de forma única</strong> cada linha da tabela. Propriedades:</p>
+                            <ul>
+                                <li><strong>Unicidade:</strong> valores não se repetem;</li>
+                                <li><strong>Monovalorada:</strong> toda linha tem no máximo um valor de chave;</li>
+                                <li><strong>Obrigatória:</strong> nenhum valor da chave pode ser vazio (integridade de entidade);</li>
+                                <li><strong>Mínima:</strong> todas as colunas que a formam são necessárias — não sobram colunas.</li>
+                            </ul>
+                            <p>Quando a PK é formada por uma só coluna, chamamos de <strong>chave simples</strong>; quando são duas ou mais colunas, é <strong>chave composta</strong>.</p>
+                            <p><strong>Chaves candidatas:</strong> colunas que poderiam ser PK (ex: CPF e código do aluno são candidatas; uma é escolhida como PK, a outra vira chave alternativa). Muitos times preferem criar uma chave artificial (ex: id autoincremento) para manter independência dos dados de negócio.</p>
+
+                            <h3>1.3 Chave estrangeira (FK)</h3>
+                            <p>Chave estrangeira é uma coluna (ou conjunto de colunas) cujos valores <strong>aparecem necessariamente na chave primária de outra tabela</strong>. Ela implementa os relacionamentos e garante a <strong>integridade referencial</strong>.</p>
+                            <div class="warning-box">
+                                <p><strong>Restrições impostas pela FK:</strong></p>
+                                <ul>
+                                    <li>Ao inserir, o valor da FK deve existir na PK da tabela referenciada;</li>
+                                    <li>Ao alterar o valor da FK, o novo valor deve existir na PK;</li>
+                                    <li>Não se pode excluir uma linha que está sendo referenciada por FKs;</li>
+                                    <li>Ao alterar o valor da PK referenciada, o SGBD deve propagar a mudança.</li>
+                                </ul>
+                            </div>
+
+                            <h3>1.4 Esquema textual</h3>
+                            <p>Um banco relacional também pode ser descrito textualmente:</p>
+                            <p><code style="background:rgba(255,255,255,0.1);padding:3px 8px;border-radius:5px;">FUNCIONARIO (CODIGOFUNCIONARIO, NOME, CPF, SEXO, DTNASCIMENTO)<br>
+                            DEPENDENTE (CODIGOFUNCIONARIO, NRDEPENDENTE, NOME, DTNASCIMENTO)<br>
+                            CODIGOFUNCIONARIO REFERENCIA FUNCIONARIO</code></p>
+                            <p>As chaves primárias costumam ser <u>sublinhadas</u>; as FKs são declaradas com "REFERENCIA".</p>
+
+                            <div class="section-divider"><span>2. NORMALIZAÇÃO</span></div>
+
+                            <h3>2.1 Por que normalizar?</h3>
+                            <p>Normalização é um processo baseado em <strong>formas normais (FN)</strong> que ajuda a verificar se um banco foi bem projetado, com objetivo de <strong>reduzir redundâncias e anomalias</strong>, melhorando a consistência e integridade dos dados. Na prática, costumamos normalizar até a <strong>3ª Forma Normal (3FN)</strong>.</p>
+
+                            <h3>2.2 Primeira Forma Normal (1FN)</h3>
+                            <p>Uma tabela está na 1FN quando <strong>não possui atributos multivalorados nem atributos compostos</strong> — todos os atributos são atômicos e monovalorados.</p>
+                            <p>Para chegar à 1FN: quebramos atributos compostos em colunas atômicas e transformamos atributos multivalorados/ grupos repetitivos em novas tabelas com FK para a tabela original.</p>
+
+                            <h3>2.3 Dependência funcional</h3>
+                            <p>Um atributo Y depende funcionalmente de X (X → Y) se, conhecido o valor de X, conseguimos determinar o valor de Y de forma única. Ex: CODIGODOCENTE → NOME (se sei o código, sei o nome).</p>
+                            <p><strong>Dependência funcional parcial:</strong> quando uma coluna não-chave depende apenas de <em>parte</em> da chave primária composta (e não da chave inteira).</p>
+
+                            <h3>2.4 Segunda Forma Normal (2FN)</h3>
+                            <p>Uma tabela está na 2FN se <strong>está na 1FN e não há dependências funcionais parciais</strong>. Em outras palavras, toda coluna não-chave depende da chave inteira, não só de uma parte dela.</p>
+
+                            <h3>2.5 Dependência funcional transitiva</h3>
+                            <p>Ocorre quando uma coluna não-chave depende de outra coluna <strong>não-chave</strong>. Ex: se CATEGORIA → SALARIO na tabela DOCENTE, SALARIO depende de CATEGORIA, que não é chave — essa dependência é transitiva.</p>
+
+                            <h3>2.6 Terceira Forma Normal (3FN)</h3>
+                            <p>Uma tabela está na 3FN se <strong>está na 2FN e não possui dependências transitivas</strong>. Solução: retirar as colunas que dependem transitivamente e colocá-las em uma nova tabela, com a coluna determinante como PK.</p>
+                            <div class="tip-box">
+                                <p><strong>Resumo:</strong> 1FN = atômica; 2FN = sem dependência parcial; 3FN = sem dependência transitiva.</p>
+                            </div>
+
+                            <div class="section-divider"><span>3. MAPEAMENTO CONCEITUAL-LÓGICO</span></div>
+
+                            <h3>3.1 Mapeamento de entidades</h3>
+                            <ul>
+                                <li><strong>Entidade forte:</strong> vira tabela; atributos simples viram colunas; identificador vira PK.</li>
+                                <li><strong>Entidade fraca:</strong> vira tabela; ganha uma FK referenciando a entidade proprietária; sua PK é composta pela FK + atributo identificador da entidade fraca.</li>
+                            </ul>
+
+                            <h3>3.2 Mapeamento de relacionamentos</h3>
+                            <ul>
+                                <li><strong>1:1:</strong> em geral adicionamos coluna(s) com FK em uma das tabelas (ou fazemos fusão, dependendo da participação obrigatória/ opcional).</li>
+                                <li><strong>1:N:</strong> a FK vai para a tabela do lado N (referenciando a PK da tabela do lado 1). Atributos do relacionamento também vão para a tabela do lado N.</li>
+                                <li><strong>N:N:</strong> criamos uma <strong>tabela associativa</strong> própria com FKs para as duas entidades; a PK é composta pelas duas FKs; atributos do relacionamento viram colunas dessa tabela.</li>
+                                <li><strong>N-ário (ternário+):</strong> igual ao N:N — tabela própria com FKs para todas as entidades participantes e PK composta.</li>
+                            </ul>
+                            <p>Quanto à <strong>entidade associativa</strong> do conceitual: mapeia-se como no N:N — tabela própria.</p>
+                            <p><strong>Autorrelacionamento:</strong> usa as mesmas regras de cardinalidade; a FK aponta para a própria tabela.</p>
+
+                            <h3>3.3 Mapeamento de atributos multivalorados</h3>
+                            <p>Cada atributo multivalorado vira uma nova tabela com FK para a tabela original; a PK é composta pela FK + o próprio valor do atributo (ou um contador).</p>
+
+                            <h3>3.4 Mapeamento de especialização/generalização</h3>
+                            <p>Três soluções clássicas:</p>
+                            <ol>
+                                <li><strong>Tabela única (solução I):</strong> uma só tabela com todos os atributos da genérica e das especializações, mais uma coluna "TIPO" para indicar o subtipo. Simples, mas pode gerar muitos NULLs.</li>
+                                <li><strong>Uma tabela por entidade (solução II — a mais usual):</strong> tabela para a entidade genérica; cada entidade especializada vira uma tabela cuja PK também é FK para a genérica. Flexível, facilita novas especializações.</li>
+                                <li><strong>Subdivisão da entidade genérica (solução III):</strong> não existe tabela para a genérica; cada especializada contém os atributos herdados. Se a especialização for parcial, é preciso criar uma tabela extra para os genéricos. Pode gerar redundância.</li>
+                            </ol>
+
+                            <div class="section-divider"><span>4. ASPECTOS FÍSICOS NO SGBD</span></div>
+
+                            <h3>4.1 Consultas e transações</h3>
+                            <p><strong>Consultas</strong> são operações de recuperação (e também inserção, atualização, exclusão) feitas em SQL. Um SELECT típico é:</p>
+                            <p><code style="background:rgba(255,255,255,0.1);padding:8px 12px;border-radius:5px;display:block;">SELECT colunas<br>FROM tabela<br>WHERE condição;</code></p>
+                            <p><strong>Transações</strong> são sequências de operações tratadas como uma unidade lógica de trabalho ("tudo ou nada"), garantindo as propriedades <strong>ACID</strong> (Atomicidade, Consistência, Isolamento, Durabilidade).</p>
+
+                            <h3>4.2 Consultas com múltiplas tabelas (JOIN)</h3>
+                            <p>Em bancos normalizados, muitas consultas precisam combinar dados de mais de uma tabela. Sem índices, o SGBD pode precisar montar tabelas temporárias gigantes (produto cartesiano) antes de aplicar o filtro — o que é caro.</p>
+
+                            <h3>4.3 Indexação</h3>
+                            <p>Um <strong>índice</strong> é uma estrutura auxiliar que torna mais eficiente a recuperação de registros. Funciona como o índice remissivo de um livro: ele aponta onde está cada valor.</p>
+                            <ul>
+                                <li>O SGBD cria automaticamente índice para a chave primária;</li>
+                                <li>Índices aceleram consultas com filtros (WHERE), junções (JOIN) e ordenações (ORDER BY);</li>
+                                <li>Colunas com restrição de unicidade também costumam ser indexadas;</li>
+                                <li>Índices têm custo: ocupam espaço e tornam inserções/atualizações/exclusões mais lentas (pois o índice também precisa ser atualizado).</li>
+                            </ul>
+
+                            <h3>4.4 Projeto físico</h3>
+                            <p>Projetar fisicamente é "colocar a mão na massa" — gerar o SQL para criar tabelas, relacionamentos e índices no SGBD escolhido. Fatores que influenciam as decisões:</p>
+                            <ul>
+                                <li><strong>Consultas mais frequentes:</strong> aplicar o Princípio de Pareto (80/20): 20% das consultas geram 80% do processamento — priorize essas;</li>
+                                <li><strong>Restrições de tempo:</strong> consultas/transações com exigências rígidas de tempo de resposta pedem índices nas colunas usadas nos filtros/junções;</li>
+                                <li><strong>Frequência de atualização:</strong> tabelas muito atualizadas devem ter índices com moderação;</li>
+                                <li><strong>Restrições de unicidade:</strong> crie índice para cada coluna única.</li>
+                            </ul>
+
+                            <h3>4.5 Desnormalização</h3>
+                            <p>Quando o desempenho é prioritário (ex: relatórios, sistemas com muitos acessos de leitura), podemos <strong>desnormalizar</strong> — sacrificar a normalização para reduzir joins e acelerar consultas. Isso introduz redundância deliberada e exige cuidado extra para manter consistência.</p>
+
+                            <div class="section-divider"><span>📝 ATIVIDADES DA AULA 3</span></div>
+                        `,
+                        questoes: [
+                            {
+                                pergunta: 'Qual é a principal função de uma tabela em um banco de dados relacional?',
+                                opcoes: [
+                                    'Ordenar registros alfanumericamente.',
+                                    'Armazenar arquivos binários.',
+                                    'Estruturar dados em linhas e colunas.',
+                                    'Controlar o acesso por senhas.',
+                                    'Realizar cálculos matemáticos.'
+                                ],
+                                correta: 2,
+                                explicacao: 'Uma tabela é uma estrutura organizada que armazena dados de forma tabular, com linhas (registros) e colunas (atributos), facilitando a consulta, manipulação e relacionamento entre os dados.'
+                            },
+                            {
+                                pergunta: 'Qual opção define corretamente o papel essencial da chave primária?',
+                                opcoes: [
+                                    'Facilitar a ordenação dos registros.',
+                                    'Fornecer uma cópia de backup dos dados.',
+                                    'Garantir a unicidade e a identificação exclusiva de cada registro.',
+                                    'Definir a formatação visual das tabelas.',
+                                    'Controlar o acesso aos dados por meio de senhas.'
+                                ],
+                                correta: 2,
+                                explicacao: 'A chave primária assegura que todo registro seja único e tenha identificação exclusiva, promovendo a integridade de entidade e servindo de âncora para relacionamentos com outras tabelas (FK).'
+                            },
+                            {
+                                pergunta: 'A respeito das chaves em projeto relacional:\nI. Quando mais de uma coluna pode diferenciar linhas e uma é escolhida como PK, as demais são chaves alternativas.\nII. Uma PK é coluna (ou combinação) cujos valores servem para diferenciar uma linha das demais.\nIII. A chave estrangeira permite implementar relacionamentos entre tabelas.',
+                                opcoes: [
+                                    'Somente a I está correta.',
+                                    'Somente a II está correta.',
+                                    'Somente a III está correta.',
+                                    'Todas as proposições estão corretas.',
+                                    'Somente I e II estão corretas.'
+                                ],
+                                correta: 3,
+                                explicacao: 'As três afirmações descrevem corretamente: chaves alternativas (candidatas não eleitas), a função da PK (identificação única) e o papel da FK (implementar relacionamentos e garantir integridade referencial).'
+                            },
+                            {
+                                pergunta: 'Em uma instituição com banco BDIES e tabela ALUNO (CODIGOALUNO int PK, NOME char(90), SEXO char(1), DTNASCIMENTO date), é correto afirmar que:',
+                                opcoes: [
+                                    'O banco pode possuir coleção de tabelas com nomes exclusivos, e colunas podem conter valores dentro de um domínio.',
+                                    'A coluna CODIGOALUNO é chave estrangeira na tabela ALUNO.',
+                                    'A coluna CODIGOALUNO pode ser opcional.',
+                                    'A coluna NOME é multivalorada.',
+                                    'A coluna DTNASCIMENTO é uma chave alternativa.'
+                                ],
+                                correta: 0,
+                                explicacao: 'Toda tabela de um banco relacional deve ter nome único, e cada coluna está associada a um domínio/tipo. A CODIGOALUNO é PK (portanto obrigatória e não pode ser FK dela mesma); NOME é monovalorada; DTNASCIMENTO não tem unicidade garantida, então não é chave alternativa.'
+                            },
+                            {
+                                pergunta: 'Qual é o principal objetivo da normalização?',
+                                opcoes: [
+                                    'Aumentar a redundância dos dados.',
+                                    'Simplificar a estrutura do banco de dados.',
+                                    'Introduzir dados fictícios para teste.',
+                                    'Permitir acesso irrestrito aos dados.',
+                                    'Melhorar a consistência e a integridade dos dados, reduzindo redundâncias e anomalias.'
+                                ],
+                                correta: 4,
+                                explicacao: 'A normalização cria estruturas mais eficientes e flexíveis, reduzindo redundâncias e anomalias de atualização, o que resulta em maior consistência e integridade.'
+                            },
+                            {
+                                pergunta: 'Qual princípio define a Primeira Forma Normal (1FN)?',
+                                opcoes: [
+                                    'Eliminação de redundâncias por completo.',
+                                    'Restrição à atomicidade dos valores (sem atributos multivalorados ou compostos).',
+                                    'Hierarquia de dados complexa.',
+                                    'Ausência de relacionamentos entre tabelas.',
+                                    'Ênfase na diversidade de tipos de dados.'
+                                ],
+                                correta: 1,
+                                explicacao: 'A 1FN exige que cada atributo contenha valores atômicos e monovalorados, sem estruturas repetitivas ou compostas dentro de uma célula.'
+                            },
+                            {
+                                pergunta: 'O que caracteriza um esquema que atenda à Segunda Forma Normal (2FN)?',
+                                opcoes: [
+                                    'Ausência de dados duplicados.',
+                                    'Dependência total da chave primária (eliminação de dependências funcionais parciais).',
+                                    'Eliminação de dependências transitivas.',
+                                    'Atributos armazenados de forma não atômica.',
+                                    'Nenhum relacionamento entre tabelas.'
+                                ],
+                                correta: 1,
+                                explicacao: 'A 2FN exige 1FN + ausência de dependências parciais: cada atributo não-chave depende da chave inteira, não apenas de uma parte dela (o que é especialmente relevante em chaves compostas).'
+                            },
+                            {
+                                pergunta: 'Sobre a Terceira Forma Normal (3FN), assinale a alternativa verdadeira:',
+                                opcoes: [
+                                    'A tabela não precisa estar na 1FN.',
+                                    'A tabela não precisa estar na 2FN.',
+                                    'A tabela não pode conter campos opcionais.',
+                                    'A tabela precisa estar na 2FN e não deve possuir dependências funcionais transitivas.',
+                                    'A tabela não pode possuir dependência transitiva de parte da chave primária.'
+                                ],
+                                correta: 3,
+                                explicacao: 'A 3FN é cumulativa: exige 1FN + 2FN, e em cima disso elimina dependências transitivas (colunas não-chave dependendo de outras colunas não-chave).'
+                            },
+                            {
+                                pergunta: 'No mapeamento conceitual-lógico de entidades, qual etapa ocorre após a transformação do modelo conceitual em modelo lógico relacional?',
+                                opcoes: [
+                                    'Identificação das entidades e seus atributos.',
+                                    'Definição das cardinalidades.',
+                                    'Conversão das entidades em tabelas e dos atributos em colunas.',
+                                    'Normalização das tabelas para eliminar redundâncias e anomalias.',
+                                    'Implementação do modelo lógico em um SGBD.'
+                                ],
+                                correta: 4,
+                                explicacao: 'A implementação do modelo lógico no SGBD escolhido é a etapa seguinte ao mapeamento, já entrando no projeto físico (tipos concretos, SQL de criação, índices etc.).'
+                            },
+                            {
+                                pergunta: 'Considere um relacionamento N:N entre TURMA e DISCIPLINA chamado OFERTA. Para cada disciplina ofertada por uma turma é necessário saber o número de vagas. Qual é o modelo lógico correto?',
+                                opcoes: [
+                                    'Somente uma tabela para todo o modelo.',
+                                    'Duas tabelas: uma para TURMA e outra para DISCIPLINA.',
+                                    'Três tabelas: TURMA, DISCIPLINA e OFERTA. O atributo "número de vagas" fica em OFERTA.',
+                                    'Três tabelas: TURMA, DISCIPLINA e OFERTA. O atributo "número de vagas" fica em DISCIPLINA.',
+                                    'Três tabelas: TURMA, DISCIPLINA e OFERTA. O atributo "número de vagas" fica em TURMA.'
+                                ],
+                                correta: 2,
+                                explicacao: 'Relacionamentos N:N viram tabela associativa própria (OFERTA) com FKs para TURMA e DISCIPLINA e PK composta. Os atributos do relacionamento (vagas) pertencem a essa tabela.'
+                            },
+                            {
+                                pergunta: 'No mapeamento de atributos multivalorados:\nI. Cria-se uma nova tabela para armazenar os valores.\nII. Pode-se armazenar os valores em um único campo com delimitador (embora não seja o ideal no relacional).\nIII. Normalização da tabela é utilizada diretamente no mapeamento de multivalorados.\nIV. Pode-se criar uma coluna separada para cada valor.',
+                                opcoes: [
+                                    'I, II, III e IV.',
+                                    'II, III e IV.',
+                                    'I, III e IV.',
+                                    'I, II e IV.',
+                                    'I, II e III.'
+                                ],
+                                correta: 3,
+                                explicacao: 'São técnicas reconhecidas: nova tabela (a forma "correta" no relacional), um único campo separado por delimitador (gambarra comum) e colunas separadas (telefone1, telefone2...). A normalização é uma técnica para evitar redundâncias de forma mais ampla — não é específica do mapeamento de multivalorados.'
+                            },
+                            {
+                                pergunta: 'Sobre herança (especialização/generalização) entre Funcionario (Nome, CPF, Salario), Cargo (NomeCargo, Departamento), Gerente (com Bônus) e Vendedor (com Comissão):\nI. É possível criar uma única tabela Funcionario com todos os atributos.\nII. É possível criar Funcionario e Cargo separados, e depois tabelas para Gerente e Vendedor com FK para Funcionario.\nIII. É possível criar tabelas separadas para Gerente e Vendedor contendo todos os atributos herdados.\nIV. Criar Funcionario e Cargo e colocar Bônus e Comissão como colunas de Cargo é incorreto.',
+                                opcoes: [
+                                    'I, II, III e IV.',
+                                    'II, III e IV.',
+                                    'I, III e IV.',
+                                    'I, II e IV.',
+                                    'I, II e III.'
+                                ],
+                                correta: 4,
+                                explicacao: 'As soluções I (tabela única com coluna TIPO), II (uma tabela por entidade) e III (subdivisão/solução III) são as três estratégias clássicas. A IV está incorreta: bônus e comissão são dos funcionários subtipos, não do cargo.'
+                            },
+                            {
+                                pergunta: 'Quais são as características fundamentais de transações (propriedades ACID)?\nI. Reversibilidade (sempre pode ser desfeita automaticamente).\nII. Atomicidade.\nIII. Consistência.\nIV. Isolamento.',
+                                opcoes: [
+                                    'I, II, III e IV.',
+                                    'II, III e IV.',
+                                    'I, III e IV.',
+                                    'I, II e IV.',
+                                    'I, II e III.'
+                                ],
+                                correta: 1,
+                                explicacao: 'ACID = Atomicidade, Consistência, Isolamento e Durabilidade. "Reversibilidade" não é um princípio fundamental; em caso de falha há rollback, mas não é a reversibilidade uma propriedade definidora como as demais.'
+                            },
+                            {
+                                pergunta: 'Sobre vantagens da indexação:\nI. Acelera a recuperação de dados em consultas.\nII. Reduz o espaço em disco ocupado pelo banco.\nIII. Melhora a performance de consultas com filtros e ordenações.\nIV. Permite a criação de consultas complexas com várias condições.',
+                                opcoes: [
+                                    'I, II, III e IV.',
+                                    'II, III e IV.',
+                                    'I, III e IV.',
+                                    'I, II e IV.',
+                                    'I, II e III.'
+                                ],
+                                correta: 2,
+                                explicacao: 'Índices aceleram consultas (filtros, junções e ordenações) e facilitam consultas complexas. Porém eles ocupam espaço extra em disco (não reduzem) e tornam escritas mais caras.'
+                            },
+                            {
+                                pergunta: 'Qual é a principal vantagem de utilizar índices em consultas SQL?',
+                                opcoes: [
+                                    'Reduzir o número de linhas retornadas pela consulta.',
+                                    'Aumentar a complexidade da consulta.',
+                                    'Melhorar o desempenho da consulta (reduzir tempo de execução).',
+                                    'Aumentar o tempo de execução da consulta.',
+                                    'Nenhuma diferença perceptível.'
+                                ],
+                                correta: 2,
+                                explicacao: 'Índices são estruturas auxiliares que permitem ao SGBD localizar registros mais rapidamente, resultando em consultas mais velozes. Eles não mudam o resultado (quantidade de linhas), só a velocidade.'
+                            },
+                            {
+                                pergunta: 'Qual das alternativas NÃO é uma vantagem da desnormalização?',
+                                opcoes: [
+                                    'Acelerar o tempo de resposta de consultas frequentes.',
+                                    'Reduzir a redundância de dados, diminuindo espaço em disco.',
+                                    'Melhorar a escalabilidade em grandes conjuntos de dados.',
+                                    'Simplificar consultas complexas (menos joins).',
+                                    'Eliminar a necessidade de joins em algumas consultas.'
+                                ],
+                                correta: 1,
+                                explicacao: 'A desnormalização AUMENTA a redundância deliberadamente para ganhar desempenho; portanto, "reduzir redundância" não é uma vantagem — é justamente o oposto do que ela faz.'
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'nuvem',
+                nome: 'Computação em Nuvem - Fundamentos Básicos',
+                icone: '☁️',
+                descricao: 'Cloud, IaaS/PaaS/SaaS e segurança',
+                aulas: [
+                    {
+                        id: 'nuvem-aula1',
+                        numero: 1,
+                        titulo: 'Afinal, o que é a nuvem?',
+                        icone: '🌫️',
+                        conteudo: `
+                            <h2>AULA 1 - AFINAL, O QUE É A NUVEM?</h2>
+                            <p>Olá! Vamos desvendar a computação em nuvem (<em>cloud computing</em>). Você provavelmente já usa a nuvem todos os dias — ao salvar uma foto no Google Fotos, usar o e-mail ou assistir a um filme na Netflix — sem perceber. Vamos entender o que está acontecendo "por trás" disso.</p>
+
+                            <h3>O que você vai aprender aqui:</h3>
+                            <ul>
+                                <li>O que é computação em nuvem, vantagens, desvantagens, principais provedores e história.</li>
+                                <li>Os modelos de nuvem (5 características, 3 tipos de serviço e 4 formas de implantação — NIST).</li>
+                                <li>As tecnologias que tornaram a nuvem possível (virtualização, contêineres, serverless, ASP, grid e utility computing).</li>
+                            </ul>
+
+                            <div class="section-divider"><span>PARTE 1 — O QUE É COMPUTAÇÃO EM NUVEM</span></div>
+
+                            <h3>1.1 O que é, afinal?</h3>
+                            <p>Pense nos serviços essenciais da sua casa: água, luz, telefone. Você não precisa ter um poço, uma usina ou uma central telefônica — você consome e paga pelo que usou. Esse é o modelo de <strong>"pagamento baseado no consumo"</strong>.</p>
+                            <p>A computação em nuvem aplica essa mesma ideia à tecnologia: você usa recursos de informática sob demanda e paga pelo que consumiu, sem precisar comprar servidores, softwares caros ou contratar uma equipe para cuidar de tudo.</p>
+                            <div class="highlight-box">
+                                <p><strong>Em uma frase:</strong> computação em nuvem = alugar recursos de TI (armazenamento, processamento, software) pela internet, pagando só pelo que usar.</p>
+                            </div>
+                            <p>De onde vem a palavra "nuvem"? Dos diagramas das antigas redes de telefonia. Os desenhos mostravam uma nuvem representando a interligação das redes das empresas — algo que estava fora do alcance delas.</p>
+                            <div class="tip-box">
+                                <p><strong>Para fixar:</strong> o usuário da nuvem guarda arquivos, dados e aplicativos em servidores remotos e acessa tudo pela internet, de qualquer lugar e qualquer dispositivo, sem instalar programas — basta um navegador.</p>
+                            </div>
+
+                            <h3>1.2 Utility computing: a origem da ideia</h3>
+                            <p>A nuvem é a evolução da <strong>utility computing</strong> ("computação de utilidade pública"): fornecer armazenamento, processamento e largura de banda por meio de provedores especializados, a baixo custo.</p>
+                            <p>Na utility computing, os usuários não se preocupam com <strong>escalabilidade</strong> — a capacidade parece infinita. Quer mais 100 máquinas? Basta pagar por isso.</p>
+
+                            <h3>1.3 Vantagens da nuvem</h3>
+                            <ul>
+                                <li><strong>Economia:</strong> sem custo inicial com infraestrutura; pagamos só pelo que consumimos; sem gastos com espaço, energia, ar-condicionado e manutenção.</li>
+                                <li><strong>Escalabilidade:</strong> aumentar recursos de forma simples:
+                                    <ul>
+                                        <li><strong>Vertical:</strong> adicionar mais potência ao mesmo servidor (CPU, memória);</li>
+                                        <li><strong>Horizontal:</strong> adicionar mais servidores trabalhando juntos.</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Elasticidade:</strong> adaptar recursos automaticamente conforme a demanda sobe ou desce (ex.: um site recebe tráfego enorme após uma notícia e a nuvem provisiona mais servidores).</li>
+                                <li><strong>Atualização constante:</strong> o provedor cuida de manter hardware e software atualizados.</li>
+                                <li><strong>Implantação rápida:</strong> o serviço funciona em pouco tempo, sem comprar e montar ambientes.</li>
+                                <li><strong>Acesso global:</strong> serviços disponíveis 24/7, de qualquer lugar e dispositivo.</li>
+                                <li><strong>Disponibilidade:</strong> backup, recuperação de desastres e replicação de dados.</li>
+                                <li><strong>Segurança:</strong> o provedor cuida da segurança física e lógica.</li>
+                            </ul>
+
+                            <h3>1.4 Desvantagens da nuvem</h3>
+                            <ul>
+                                <li><strong>Perda de controle:</strong> você entrega seus dados ao provedor e depende dele.</li>
+                                <li><strong>Interrupção dos serviços:</strong> ataques, falta de energia ou conexão do provedor geram períodos de inatividade.</li>
+                                <li><strong>Paradoxo da segurança:</strong> a segurança aparece como vantagem e como desvantagem — ataques a grandes provedores podem afetar indiretamente outros clientes.</li>
+                            </ul>
+                            <div class="warning-box">
+                                <p><strong>Para fixar:</strong> nuvem ≠ "infinitamente segura". Você perde controle, depende da internet e do provedor.</p>
+                            </div>
+
+                            <h3>1.5 Principais provedores</h3>
+                            <ul>
+                                <li><strong>Amazon Web Services (AWS):</strong> líder de mercado; oferece de tudo (computação, armazenamento, IA, IoT).</li>
+                                <li><strong>Microsoft Azure:</strong> da Microsoft; inclui o Office na nuvem e serviços de infraestrutura.</li>
+                                <li><strong>Google Cloud Platform (GCP):</strong> produtos do Google (compute, storage, DB, big data, machine learning).</li>
+                                <li><strong>IBM Cloud:</strong> oferece IaaS, PaaS, SaaS e FaaS; com acesso ao IBM Watson.</li>
+                                <li><strong>Oracle Cloud:</strong> oferece IaaS, PaaS, SaaS e DaaS (Dados como Serviço); forte em migração e bancos de dados.</li>
+                            </ul>
+
+                            <h3>1.6 Evolução histórica</h3>
+                            <ul>
+                                <li><strong>1950/60 — CPDs e mainframes:</strong> empresas tinham centros de processamento próprios com máquinas gigantes. Em 1964 surgiu o IBM System/360 (usado no programa Apollo da NASA). Curiosidade: a virtualização já existia em mainframes há mais de 30 anos!</li>
+                                <li><strong>1980 — PCs e redes:</strong> computadores pessoais e arquitetura cliente-servidor. O datacenter era a alma da empresa; se o servidor caísse, a empresa parava.</li>
+                                <li><strong>A virada — virtualização de servidores:</strong> o <strong>hypervisor</strong> permite que um servidor físico hospede vários servidores virtuais, usando a capacidade máxima do datacenter. <strong>Virtualização é a essência da nuvem.</strong></li>
+                            </ul>
+                            <p>Origem da ideia: nos anos 1960, <strong>J.C.R. Licklider</strong> (um dos pais da Arpanet) propôs uma "rede intergaláctica de computadores" — todos conectados, acessando programas e dados de qualquer lugar. Ali nascia o modelo da nuvem.</p>
+
+                            <div class="section-divider"><span>PARTE 2 — MODELOS DE NUVEM (NIST)</span></div>
+
+                            <h3>2.1 A definição do NIST</h3>
+                            <p>O NIST define a nuvem como um modelo que possibilita acesso conveniente e sob demanda a um conjunto de recursos configuráveis (redes, servidores, armazenamento, aplicações e serviços), que podem ser adquiridos e liberados rapidamente, com mínimo esforço.</p>
+                            <p>O modelo é composto por: <strong>5 características essenciais</strong>, <strong>3 modelos de serviço</strong> e <strong>4 modelos de implantação</strong>.</p>
+
+                            <h3>2.2 As 5 características essenciais (NIST)</h3>
+                            <ol>
+                                <li><strong>Autoatendimento sob demanda:</strong> você aloca e libera recursos sozinho, sem falar com ninguém.</li>
+                                <li><strong>Amplo acesso à rede:</strong> acessível de vários tipos de dispositivo (celular, laptop, tablet).</li>
+                                <li><strong>Agrupamento de recursos:</strong> os recursos são compartilhados entre vários consumidores (modelo multilocatário).</li>
+                                <li><strong>Elasticidade dinâmica:</strong> ampliar e reduzir recursos rápido, dando sensação de capacidade infinita.</li>
+                                <li><strong>Serviço mensurável:</strong> medir exatamente o que foi usado (pay-as-you-go / pague pelo uso).</li>
+                            </ol>
+                            <div class="tip-box">
+                                <p><strong>Para fixar:</strong> self-service, acesso amplo, agrupamento, elasticidade e serviço mensurável.</p>
+                            </div>
+
+                            <h3>2.3 Camadas e atores</h3>
+                            <p>As 3 camadas são: infraestrutura (servidores/armazenamento/rede), plataforma (ferramentas para devs) e aplicação (apps prontos).</p>
+                            <p>Os 3 atores: provedores de serviço, provedores de infraestrutura e usuários.</p>
+
+                            <h3>2.4 Os 3 modelos de serviço</h3>
+                            <ol>
+                                <li><strong>IaaS — Infraestrutura como Serviço:</strong> você usa recursos brutos (VMs, armazenamento, rede). O provedor entrega a virtualização; você cuida de SO, aplicativos e dados. Ex.: máquinas virtuais da AWS/Azure.</li>
+                                <li><strong>PaaS — Plataforma como Serviço:</strong> plataforma pronta para desenvolver e implantar apps. Você cuida só do código e dos dados. Ex.: Google App Engine.</li>
+                                <li><strong>SaaS — Software como Serviço:</strong> apps prontos acessados pela internet. Provedor gerencia tudo; você só usa. Ex.: Dropbox, Google Apps, Microsoft 365, Netflix.</li>
+                            </ol>
+                            <div class="highlight-box">
+                                <p><strong>Regra de ouro:</strong> IaaS = máximo gerenciamento do usuário; PaaS = meio; SaaS = mínimo. On premises = tudo fica a cargo do cliente.</p>
+                                <p><strong>A analogia da festa de 15 anos:</strong> SaaS = festa na casa de festas com tudo incluso (você só aparece). PaaS = você contrata salão+buffet+DJ e cuida de parte dos detalhes. IaaS = você aluga só o salão e cuida de todo o resto. On premises = festa na sua casa (tudo é responsabilidade da família).</p>
+                            </div>
+
+                            <h3>2.5 Outros modelos</h3>
+                            <p>DRaaS (Recuperação de Desastres), CaaS (Comunicação), FaaS (Função como Serviço / serverless), DBaaS (Banco de Dados como Serviço), MaaS (Monitoramento).</p>
+
+                            <h3>2.6 Os modelos de implantação</h3>
+                            <ul>
+                                <li><strong>Nuvem pública:</strong> recursos para o público geral pela internet. Vantagens: preço diluído, fácil contratação, escalabilidade. Desvantagens: menor controle, dados podem estar em outros países.</li>
+                                <li><strong>Nuvem privada:</strong> ambiente exclusivo para uma empresa (atrás do firewall). Vantagens: mais segurança, customização, suporte exclusivo. Desvantagens: custo inicial alto, equipe própria.</li>
+                                <li><strong>Nuvem híbrida:</strong> mistura pública + privada (dados cruciais na privada, resto na pública).</li>
+                                <li><strong>Nuvem comunitária:</strong> compartilhada por várias empresas com interesses comuns (custos divididos).</li>
+                                <li><strong>Nuvem distribuída:</strong> servidores em diferentes localidades conectados a uma única rede — máxima disponibilidade e baixa latência.</li>
+                            </ul>
+
+                            <div class="section-divider"><span>PARTE 3 — TECNOLOGIAS HABILITADORAS</span></div>
+
+                            <h3>3.1 Virtualização</h3>
+                            <p>Tecnologia que permite que diversas aplicações e sistemas operacionais rodem na mesma máquina física, gerenciados por um <strong>hypervisor</strong> (VMM — monitor de máquina virtual).</p>
+                            <p>Dois tipos de hypervisor:</p>
+                            <ul>
+                                <li><strong>Tipo 1 (bare metal):</strong> roda direto no hardware (sem SO por baixo). Mais usado em servidores.</li>
+                                <li><strong>Tipo 2 (hosted):</strong> roda como aplicativo sobre um SO existente (ex.: VirtualBox). Mais usado em desktops.</li>
+                            </ul>
+                            <p>Dois tipos de virtualização: <strong>completa</strong> (hypervisor emula todo o hardware) e <strong>paravirtualização</strong> (o SO convidado sabe que está virtualizado).</p>
+
+                            <h3>3.2 Conteinerização</h3>
+                            <p>Contêineres permitem rodar sistemas isolados em um único host, compartilhando um único kernel — sem precisar de uma VM completa para cada aplicação. Contêineres são muito mais leves: iniciam rápido e usam pouca memória.</p>
+                            <div class="warning-box">
+                                <p><strong>Não confunda!</strong> Virtualização = cada VM tem seu próprio SO. Contêineres = não têm SO convidado; só a aplicação e suas dependências são empacotadas. Usam o kernel do host.</p>
+                            </div>
+                            <ul>
+                                <li><strong>Docker:</strong> plataforma open-source padrão de mercado para criar e administrar contêineres.</li>
+                                <li><strong>Kubernetes:</strong> orquestrador de contêineres (implantar, dimensionar, gerenciar em produção). Docker empacota; Kubernetes é o "maestro".</li>
+                            </ul>
+
+                            <h3>3.3 Serverless (computação sem servidor)</h3>
+                            <p>Apesar do nome, existem servidores! A ideia é que o cliente <strong>não gerencia</strong> a infraestrutura — basta enviar o código, escolher CPU/memória e definir o gatilho que invoca a função. É o FaaS (Função como Serviço).</p>
+                            <p>Características: orientado a eventos, baixo custo (cobrado por execução), escalável automaticamente. Principais fornecedores: AWS Lambda, Azure Functions, Google Cloud Functions.</p>
+
+                            <h3>3.4 ASP — Provedor de Serviços de Aplicação</h3>
+                            <p>Terceirização de software pela internet (pagamento por assinatura). Exemplos: webmails (Yahoo, Gmail), Google Docs. Vantagens: baixo custo e configuração/instalação rápidas.</p>
+
+                            <h3>3.5 Grid computing (computação em grade)</h3>
+                            <p>Agrupa servidores para trabalharem juntos em uma grande infraestrutura. O software divide um programa em partes processadas em paralelo por milhares de computadores.</p>
+                            <div class="tip-box">
+                                <p><strong>Grid × Cluster:</strong> Cluster = gerenciamento centralizado, todos os nós trabalham como um só sistema. Grid = cada nó tem seu próprio gerenciador; é fundamentalmente cooperativo (troca de ciclos ociosos).</p>
+                            </div>
+
+                            <h3>3.6 Utility computing</h3>
+                            <p>Modelo sob demanda: contrata software/hardware/serviços conforme a necessidade, como água, luz ou telefone. Características: escalabilidade, preço sob demanda, serviços padronizados com SLA (contrato de nível de serviço).</p>
+
+                            <div class="section-divider"><span>📝 ATIVIDADES DA AULA 1</span></div>
+                        `,
+                        questoes: [
+                            {
+                                pergunta: 'Sobre virtualização, assinale a correta:',
+                                opcoes: [
+                                    'É uma inovação dos primórdios da computação.',
+                                    'É responsável pela configuração de vários servidores físicos no datacenter.',
+                                    'É o conceito que descreve a utilização de mais de um sistema operacional em um único servidor físico, via hypervisor.',
+                                    'Não influenciou o surgimento da nuvem.',
+                                    'É configurar vários sistemas operacionais em máquinas diferentes e distribuídas.'
+                                ],
+                                correta: 2,
+                                explicacao: 'Virtualização = um servidor físico hospedando um ou mais servidores virtuais, compartilhando o mesmo hardware e permitindo vários sistemas operacionais independentes. É a base da computação em nuvem.'
+                            },
+                            {
+                                pergunta: 'Quais os serviços de nuvem mais comuns?',
+                                opcoes: [
+                                    'Capacidade de computação e armazenamento.',
+                                    'Instalação de datacenter com servidores dedicados.',
+                                    'Configuração e manutenção de mainframe.',
+                                    'Backup dos dados dos usuários finais.',
+                                    'Segurança interna e externa dos servidores.'
+                                ],
+                                correta: 0,
+                                explicacao: 'Computação (máquinas virtuais em servidores físicos compartilhados) e armazenamento (expansível conforme o uso) são os serviços mais comuns ofertados por provedores de nuvem.'
+                            },
+                            {
+                                pergunta: 'Qual é uma vantagem de adotar o modelo SaaS?',
+                                opcoes: [
+                                    'Falta de controle.',
+                                    'Redução de custo de licenciamento e manutenção.',
+                                    'Aumento do custo de manutenção.',
+                                    'Aumento do custo de atualização.',
+                                    'Dependência de infraestrutura.'
+                                ],
+                                correta: 1,
+                                explicacao: 'No SaaS, manutenção, atualização e segurança ficam a cargo do provedor, reduzindo custos — principalmente de licenciamento, servidores e equipe de TI.'
+                            },
+                            {
+                                pergunta: 'Quando uma nuvem oferece serviços de forma exclusiva para um usuário/empresa, dizemos que é uma:',
+                                opcoes: ['Nuvem híbrida', 'Nuvem privada', 'Nuvem pública', 'Nuvem comunitária', 'Nuvem governamental'],
+                                correta: 1,
+                                explicacao: 'Nuvem privada = ambiente construído exclusivamente para uma única organização, geralmente atrás do firewall, com foco em segurança e dados sensíveis.'
+                            },
+                            {
+                                pergunta: 'Qual a diferença entre virtualização e conteinerização?',
+                                opcoes: [
+                                    'A conteinerização é semelhante às VMs, mas não precisa de um sistema operacional convidado.',
+                                    'A virtualização não está presente na nuvem; a conteinerização só é possível na nuvem.',
+                                    'Não possuem diferenças — são sinônimos.',
+                                    'Só diferem porque na virtualização não há SO convidado.',
+                                    'A conteinerização precisa de SO convidado; a virtualização não.'
+                                ],
+                                correta: 0,
+                                explicacao: 'A virtualização cria ambientes virtuais com SO próprio. O contêiner é mais enxuto: não tem SO convidado; a aplicação e suas dependências são empacotadas e usam o kernel do host.'
+                            },
+                            {
+                                pergunta: 'Qual tecnologia permite hospedar funções (FaaS) sem se preocupar com a configuração do servidor?',
+                                opcoes: ['Virtualização', 'Conteinerização', 'Computação sem servidor (serverless)', 'Grid computing', 'Modularização'],
+                                correta: 2,
+                                explicacao: 'Serverless = ambiente pronto (hardware + software) para executar funções. O desenvolvedor só envia o código; o provedor cuida de tudo o resto (escalabilidade, servidores, SO).'
+                            }
+                        ]
+                    },
+                    {
+                        id: 'nuvem-aula2',
+                        numero: 2,
+                        titulo: 'Arquitetura da Computação em Nuvem',
+                        icone: '🏗️',
+                        conteudo: `
+                            <h2>AULA 2 - ARQUITETURA DA COMPUTAÇÃO EM NUVEM</h2>
+                            <p>Olá! Depois de entendermos o que é a nuvem, agora vamos abrir a "caixa-preta" e ver como ela é montada por dentro. É como conhecer a planta de uma casa: você já sabia morar nela; agora vai entender as paredes, os canos e a fiação.</p>
+
+                            <h3>O que você vai aprender aqui:</h3>
+                            <ul>
+                                <li>A arquitetura de infraestrutura em nuvem (on premise × nuvem, camadas, front × back end, datacenters).</li>
+                                <li>A administração da camada de servidores e os serviços em nuvem.</li>
+                                <li>As arquiteturas de solução (elasticidade, balanceamento, edge computing, serverless) e as estratégias de migração.</li>
+                            </ul>
+
+                            <div class="section-divider"><span>PARTE 1 — ARQUITETURA DE INFRAESTRUTURA</span></div>
+
+                            <h3>1.1 On premise × nuvem</h3>
+                            <ul>
+                                <li><strong>Infraestrutura on premise:</strong> tecnologia comprada/alugada e hospedada dentro da própria empresa (servidores, redes, software). A empresa mantém e opera tudo.</li>
+                                <li><strong>Infraestrutura em nuvem:</strong> serviços de computação virtual, armazenamento, rede, bancos de dados e serviços especializados (IA, ML, análise).</li>
+                            </ul>
+                            <div class="highlight-box">
+                                <p><strong>Em uma frase:</strong> on premise = você é dono e cuida de tudo; nuvem = você consome um serviço e quem cuida é o provedor.</p>
+                            </div>
+
+                            <h3>1.2 As três camadas da infraestrutura</h3>
+                            <ol>
+                                <li><strong>Camada de servidor:</strong> servidores virtuais, físicos ou híbridos.</li>
+                                <li><strong>Camada de armazenamento:</strong> sistemas de arquivos, banco de dados e outros tipos.</li>
+                                <li><strong>Camada de rede:</strong> conectividade, segurança e gerenciamento de aplicativos.</li>
+                            </ol>
+                            <div class="tip-box">
+                                <p><strong>Para fixar:</strong> as três camadas são servidor (onde roda), armazenamento (onde guarda) e rede (como conecta). Toda arquitetura gira em torno delas.</p>
+                            </div>
+
+                            <h3>1.3 Arquitetura × implementação</h3>
+                            <ul>
+                                <li><strong>Arquitetura:</strong> descreve características e funções — o "projeto" (arquiteto desenha o prédio).</li>
+                                <li><strong>Implementação:</strong> a construção de fato — o "construir" (engenheiro executa).</li>
+                            </ul>
+                            <p>A estrutura básica contém: usuários dispersos geograficamente; provedores de serviços; e canais de comunicação entre eles (a internet).</p>
+
+                            <h3>1.4 Front end × Back end</h3>
+                            <ul>
+                                <li><strong>Front end:</strong> a interface que o usuário usa (smartphone, tablet, navegador). Hoje, em geral, o usuário interage apenas com o navegador.</li>
+                                <li><strong>Back end:</strong> a própria nuvem — servidores, armazenamento e softwares de gerenciamento. Fica geograficamente distante dos usuários.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <p><strong>Analogia:</strong> o front end é a frente da loja (balcão de pedidos); o back end é o depósito e a cozinha. A internet conecta os dois.</p>
+                            </div>
+                            <p>Principais componentes do back end: aplicação (recebe requisições), serviços (o coração da nuvem), cloud runtime (onde o serviço é executado, com hypervisores), armazenamento, infraestrutura (hardware), gerenciamento e segurança.</p>
+
+                            <h3>1.5 Os datacenters</h3>
+                            <p><strong>Organização física:</strong> construções projetadas para abrigar servidores e dispositivos interconectados por redes de alto desempenho. São mantidos por organizações especializadas.</p>
+                            <p><strong>Organização lógica:</strong> serviços de gerenciamento alocam recursos corretamente (evitando gargalos); serviços de segurança controlam acesso, protegem contra invasões e garantem operação contínua mesmo sob ataque ou falha.</p>
+
+                            <div class="section-divider"><span>PARTE 2 — CAMADA DE SERVIDORES E SERVIÇOS</span></div>
+
+                            <h3>2.1 A camada de servidores</h3>
+                            <p>Servidores (físicos ou virtuais) hospedam serviços, aplicativos e dados, além de armazenar e gerenciar arquivos, backups e imagens.</p>
+                            <p>Administrar envolve: monitorar desempenho, gerenciar configurações, aplicar patches de segurança, fazer backups regulares e gerenciar usuários.</p>
+                            <p>Ferramentas essenciais: servidores de gerenciamento, gerenciadores de configuração, monitoramento, automação de tarefas e segurança.</p>
+
+                            <h3>2.2 Plataformas de administração por provedor</h3>
+                            <ul>
+                                <li>AWS: Amazon EC2 (criar/gerenciar VMs) + Amazon CloudWatch (monitorar).</li>
+                                <li>Microsoft Azure: Azure Virtual Machines + Azure Monitor.</li>
+                                <li>Google Cloud: Compute Engine + Cloud Monitoring.</li>
+                                <li>IBM Cloud: IBM Virtual Servers + IBM Cloud Monitoring.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <p><strong>Padrão:</strong> todo provedor tem um serviço para criar VMs e outro para monitorá-las. É sempre esse par.</p>
+                            </div>
+
+                            <h3>2.3 Os serviços em nuvem</h3>
+                            <p>Recursos de software e hardware fornecidos como serviço pela internet — o usuário usa sem se preocupar com infraestrutura. Exemplos:</p>
+                            <ul>
+                                <li>Armazenamento na nuvem (acessar arquivos de qualquer lugar);</li>
+                                <li>Computação na nuvem (VMs a clusters);</li>
+                                <li>Infraestrutura (VPNs, firewalls);</li>
+                                <li>Plataforma (criar/implantar/gerenciar apps);</li>
+                                <li>Análise de dados (big data) e desenvolvimento via API.</li>
+                            </ul>
+
+                            <h3>2.4 Componentes do back end em detalhe</h3>
+                            <ul>
+                                <li><strong>Aplicação:</strong> recebe requisições e coordena as necessidades do usuário com os recursos.</li>
+                                <li><strong>Serviço:</strong> coração da nuvem — é onde qualquer tarefa é executada.</li>
+                                <li><strong>Cloud runtime:</strong> onde o serviço é executado (com o hypervisor); funciona como um SO da nuvem, permitindo várias VMs paralelas num mesmo servidor.</li>
+                                <li><strong>Armazenamento:</strong> HDs (grande capacidade, 8–16 TB), SSDs (muito mais rápidos, mas mais caros) e tecnologias mais recentes (como Optane). Há também NAS (storage de rede) e protocolos de compartilhamento CIFS e NFS.</li>
+                                <li><strong>Infraestrutura de processamento:</strong> servidores com processadores Xeon/Opteron, muita RAM de baixa latência, GPUs (para alto desempenho) e TPUs do Google (ASICs focados em IA).</li>
+                            </ul>
+
+                            <div class="section-divider"><span>PARTE 3 — ARQUITETURAS DE SOLUÇÃO</span></div>
+
+                            <h3>3.1 IaaS na prática</h3>
+                            <p>O IaaS fornece computação e infraestrutura para criar aplicativos e serviços. Inclui hardware (VMs, armazenamento, balanceamento de carga) e software de orquestração. Principais cenários:</p>
+
+                            <h4>Cenário de elasticidade</h4>
+                            <p>Provisionar rapidamente recursos adicionais em resposta à demanda. Você pode adicionar servidores/memória/armazenamento para picos, licenciar recursos extras e retirá-los quando não precisar mais — pagando só pelo que usar. Funciona com escalonamento vertical e horizontal.</p>
+
+                            <h4>Cenário de balanceamento de carga</h4>
+                            <p>Sistema que distribui o tráfego entre vários servidores para garantir alta disponibilidade, aumentar velocidade de resposta e evitar congestionamento. Ex.: Elastic Load Balancer da Amazon.</p>
+                            <div class="tip-box">
+                                <p><strong>Analogia:</strong> o balanceador é como um porteiro de banco que distribui os clientes entre os caixas livres — ninguém fica sobrecarregado, e todos são atendidos mais rápido.</p>
+                            </div>
+
+                            <h4>Cenário de alta disponibilidade</h4>
+                            <p>Foco em garantir o máximo tempo de funcionamento, com: replicação de dados, balanceamento de carga, redundância (cópias de backup), monitoramento contínuo e atualizações frequentes.</p>
+
+                            <h4>Cenários multicloud e híbrido</h4>
+                            <ul>
+                                <li><strong>Multicloud:</strong> usar vários provedores num ambiente único (com orquestração via Kubernetes/OpenStack).</li>
+                                <li><strong>Híbrido:</strong> combinar servidores físicos locais com serviços de nuvem para a demanda crescente.</li>
+                            </ul>
+
+                            <h3>3.2 Edge computing (computação de borda)</h3>
+                            <p>Abordagem em que dados são processados e armazenados <strong>localmente</strong> (na "borda" da rede), perto do usuário/dispositivo, em vez de ir para um datacenter remoto. Diminui latência e aumenta confiabilidade.</p>
+                            <p><strong>IoT × Edge:</strong> na IoT os dispositivos enviam todos os dados para a nuvem; no edge, dados são processados localmente e apenas uma parte é enviada ao datacenter.</p>
+                            <p>Ideal para: IoT, decisões em tempo real (reconhecimento facial, localização), realidade aumentada, jogos, problemas de largura de banda.</p>
+                            <div class="tip-box">
+                                <p><strong>Para fixar:</strong> edge = processar perto do usuário (borda), não no datacenter.</p>
+                            </div>
+
+                            <h3>3.3 Edge + Serverless</h3>
+                            <p>Em redes distribuídas como o edge, seria impossível gerenciar infraestrutura manualmente. O serverless resolve isso: serviços gerenciados cuidam de escalonamento, disponibilidade e monitoramento — o desenvolvedor só escreve código.</p>
+
+                            <h3>3.4 Migração para a nuvem — os 7 Rs</h3>
+                            <ol>
+                                <li><strong>Rehost ("lift and shift"):</strong> mover aplicações para a nuvem mantendo as configurações (sem alterar arquitetura). Migra servidores físicos/virtuais para IaaS.</li>
+                                <li><strong>Replatform:</strong> para sistemas legados; emula as aplicações em VMs, com alguns ajustes de configuração sem mudar a arquitetura principal.</li>
+                                <li><strong>Repurchase ("drop and shop"):</strong> substituir o app on premise por um SaaS nativo da nuvem (trocar de plataforma).</li>
+                                <li><strong>Refactoring / Re-architecting:</strong> desenvolver do zero (nativo da nuvem), usando microsserviços, serverless, contêineres. Melhor ROI no longo prazo.</li>
+                                <li><strong>Retire:</strong> desativar serviços que não são mais necessários.</li>
+                                <li><strong>Retain ("revisit"):</strong> manter algumas aplicações no local (latência, conformidade, atualizações recentes).</li>
+                                <li><strong>Relocate:</strong> mover infraestrutura mantendo os mesmos componentes e processos (sem envolver desenvolvedores, só equipe de operações).</li>
+                            </ol>
+
+                            <div class="section-divider"><span>📝 ATIVIDADES DA AULA 2</span></div>
+                        `,
+                        questoes: [
+                            {
+                                pergunta: 'A empresa de contabilidade CONT-H contratou nuvem porque não precisaria se preocupar em consumir recursos crescentes com o aumento da demanda (novos clientes). Qual requisito a nuvem atende?',
+                                opcoes: ['Flexibilidade', 'Escalabilidade', 'Integridade', 'Segurança', 'Velocidade'],
+                                correta: 1,
+                                explicacao: 'Escalabilidade = capacidade de crescer conforme a demanda, obtendo mais processamento e armazenamento conforme necessário (adicionando mais potência ou mais servidores).'
+                            },
+                            {
+                                pergunta: 'Sobre o cloud runtime, podemos dizer que:',
+                                opcoes: [
+                                    'É o componente no qual o serviço é executado.',
+                                    'É o componente responsável pela infraestrutura.',
+                                    'É o componente no qual os dados são armazenados.',
+                                    'É o componente que interliga aplicação e serviço.',
+                                    'É o componente responsável pelo backup.'
+                                ],
+                                correta: 0,
+                                explicacao: 'O serviço oferecido pela nuvem é executado no cloud runtime, que contém o hypervisor (monitor de VMs) responsável pela virtualização. É como o "SO da nuvem".'
+                            },
+                            {
+                                pergunta: 'A CONT-H quer uma arquitetura capaz de distribuir o tráfego dos usuários e garantir alta disponibilidade dos servidores. Qual cenário?',
+                                opcoes: ['Elasticidade', 'Balanceamento de carga', 'Nuvem privada', 'Multicloud', 'Nuvem híbrida'],
+                                correta: 1,
+                                explicacao: 'O balanceamento de carga distribui o tráfego entre vários servidores, garantindo que nenhum fique sobrecarregado (evitando lentidão ou colapso) e otimizando desempenho.'
+                            },
+                            {
+                                pergunta: 'A CONT-H tem muitos sistemas legados estruturados e incompatíveis com novas tecnologias. Qual estratégia de migração adotar?',
+                                opcoes: ['Repurchase', 'Refatorar', 'Replataforma', 'Re-hospedar', 'Retire'],
+                                correta: 2,
+                                explicacao: 'Para sistemas legados, a replataforma é a mais indicada: usa emulação por máquinas virtuais, garantindo continuidade e compatibilidade com as tecnologias de nuvem, com pequenos ajustes.'
+                            },
+                            {
+                                pergunta: 'A Blashell (refinarias) tem ativos sensíveis e decidiu usar o provedor de forma dedicada, executando aplicativos localmente. Esses aplicativos rodam na parte da arquitetura chamada de:',
+                                opcoes: ['Back end', 'Localware', 'Front end', 'Kernel', 'Cloudware'],
+                                correta: 2,
+                                explicacao: 'Como os ativos são sensíveis, os dados não devem ficar no back end (nuvem do provedor); os aplicativos são executados localmente, no front end (lado do cliente).'
+                            },
+                            {
+                                pergunta: 'Componentes comuns do back end:',
+                                opcoes: [
+                                    'Aplicação, interface e rede.',
+                                    'Rede, interface e serviços.',
+                                    'Cloud runtime, rede e interface.',
+                                    'Cloud runtime, aplicação e serviços.',
+                                    'Usuário, software e rede.'
+                                ],
+                                correta: 3,
+                                explicacao: 'Os componentes principais do back end são: aplicação (recebe requisições), serviços (executam as tarefas), cloud runtime (onde rodam), armazenamento, infraestrutura, gerenciamento e segurança. Interface e usuário pertencem ao front end.'
+                            }
+                        ]
+                    },
+                    {
+                        id: 'nuvem-aula3',
+                        numero: 3,
+                        titulo: 'Segurança em Computação na Nuvem',
+                        icone: '🔒',
+                        conteudo: `
+                            <h2>AULA 3 - SEGURANÇA EM COMPUTAÇÃO NA NUVEM</h2>
+                            <p>Olá! Depois de entendermos o que é a nuvem e como ela é montada (arquitetura), chegou a hora da pergunta que todo mundo faz: "mas será que é seguro?". Afinal, quando colocamos nossos dados "na nuvem", eles vão parar em servidores que nem sabemos onde ficam.</p>
+                            <p>A resposta curta é: sim, pode ser muito seguro — mas só se cada um fizer a sua parte.</p>
+
+                            <h3>O que você vai aprender aqui:</h3>
+                            <ul>
+                                <li>Fundamentos da nuvem (recapitulando NIST) e os princípios da segurança da informação (tríade CID).</li>
+                                <li>Aspectos de segurança e o modelo de responsabilidade compartilhada.</li>
+                                <li>A segurança de cada serviço (VMs, contêineres, bancos, armazenamento, rede, monitoramento).</li>
+                                <li>Orientações da CSA (Cloud Security Alliance).</li>
+                            </ul>
+
+                            <div class="section-divider"><span>PARTE 1 — FUNDAMENTOS (NIST)</span></div>
+
+                            <h3>1.1 A mudança de paradigma</h3>
+                            <p>Durante décadas, montar um sistema era comprar hardware → instalar SO → implantar software, e depois manter tudo com patches, backups e monitoramento contínuos.</p>
+                            <p>A nuvem mudou isso: você consome serviços gerenciados (de um software simples a ERPs/CRMs), e os serviços automatizam tarefas antes manuais, deixando a empresa livre para focar em inovação.</p>
+
+                            <h3>1.2 As 5 características essenciais (NIST 800-145)</h3>
+                            <ol>
+                                <li><strong>On-demand self-service:</strong> você provisiona recursos sozinho (em minutos), sem falar com ninguém.</li>
+                                <li><strong>Broad network access:</strong> acesso para milhões de usuários de qualquer dispositivo.</li>
+                                <li><strong>Resource pooling:</strong> milhares de computadores trabalhando de forma coordenada e compartilhada.</li>
+                                <li><strong>Rapid elasticity:</strong> escalar de 1 para milhares de servidores — e voltar — rapidamente.</li>
+                                <li><strong>Measured service:</strong> pague só pelo que consumir, com relatório de uso.</li>
+                            </ol>
+                            <div class="warning-box">
+                                <p><strong>Pegadinha de prova:</strong> não confunda as 5 características essenciais com os modelos de serviço (IaaS/PaaS/SaaS) nem com os modelos de implantação (pública/privada/híbrida/comunitária) — são categorias diferentes!</p>
+                            </div>
+
+                            <h3>1.3 Os 3 modelos de serviço</h3>
+                            <ul>
+                                <li><strong>SaaS:</strong> você usa o aplicativo pronto pelo navegador (ex.: Gmail). Toda infraestrutura fica transparente.</li>
+                                <li><strong>PaaS:</strong> você implanta seus próprios apps usando ferramentas suportadas pelo provedor. Não gerencia a infraestrutura — só o código.</li>
+                                <li><strong>IaaS:</strong> o provedor oferece processamento, armazenamento e rede crus. Você instala SOs e softwares; controla SO, armazenamento e apps — mas não a infraestrutura física.</li>
+                            </ul>
+
+                            <h3>1.4 Os 4 modelos de implantação</h3>
+                            <ul>
+                                <li><strong>Nuvem privada:</strong> para uso exclusivo de uma organização.</li>
+                                <li><strong>Nuvem comunitária:</strong> para comunidades específicas que compartilham preocupações (segurança, conformidade).</li>
+                                <li><strong>Nuvem pública:</strong> aberta ao público em geral.</li>
+                                <li><strong>Nuvem híbrida:</strong> junção de duas ou mais nuvens ligadas por tecnologia que permite portabilidade.</li>
+                            </ul>
+
+                            <h3>1.5 Os 3 gigantes do mercado</h3>
+                            <ul>
+                                <li>Netflix → AWS (streaming).</li>
+                                <li>Mercedes-Benz → Azure (pesquisa e desenvolvimento).</li>
+                                <li>Home Depot → GCP (lojas on-line).</li>
+                            </ul>
+                            <p>Exemplos por modelo:</p>
+                            <ul>
+                                <li>IaaS: Amazon EC2 / Azure VM / Google Compute Engine.</li>
+                                <li>PaaS: Elastic Beanstalk / Azure Web Apps / Google App Engine.</li>
+                                <li>SaaS: Microsoft 365 / Google Workspace / Salesforce CRM.</li>
+                            </ul>
+
+                            <div class="section-divider"><span>PARTE 2 — ASPECTOS DE SEGURANÇA</span></div>
+
+                            <h3>2.1 A tríade CID</h3>
+                            <p>Os três princípios fundamentais da segurança da informação que a nuvem deve manter:</p>
+                            <ul>
+                                <li><strong>Confidencialidade:</strong> só quem tem direito acessa a informação.</li>
+                                <li><strong>Integridade:</strong> a informação não é alterada indevidamente durante transmissão/armazenamento.</li>
+                                <li><strong>Disponibilidade:</strong> a informação está disponível sempre que necessária.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <p><strong>Decore:</strong> Confidencialidade + Integridade + Disponibilidade = CID.</p>
+                            </div>
+
+                            <h3>2.2 O que mudou da on premise para a nuvem?</h3>
+                            <p>Na on premise a empresa cuidava de tudo; na nuvem, responsabilidades são divididas. Os grandes provedores investem MUITO mais em segurança do que a maioria das empresas conseguiria sozinhas — uma violação destruiria a confiança e o negócio deles.</p>
+
+                            <h3>2.3 O modelo de responsabilidade compartilhada</h3>
+                            <div class="highlight-box">
+                                <p><strong>Regra de ouro:</strong> a responsabilidade do cliente <em>aumenta</em> conforme passamos de SaaS → PaaS → IaaS.</p>
+                                <p><strong>SaaS &lt; PaaS &lt; IaaS</strong> (em responsabilidade do cliente).</p>
+                            </div>
+                            <ul>
+                                <li><strong>SaaS:</strong> provedor cuida de quase tudo; ao cliente resta proteger as credenciais contra phishing/engenharia social. Ex.: Dropbox, Zoom, Microsoft 365.</li>
+                                <li><strong>PaaS:</strong> provedor cuida de apps/SOs da plataforma; cliente cuida do código e dos dados. Ex.: Azure App Service, Elastic Beanstalk, GKE.</li>
+                                <li><strong>IaaS:</strong> provedor cuida de virtualização, discos, rede e segurança física; cliente cuida do SO e toda a pilha de software + dados. Ex.: EC2, Azure VM, Compute Engine.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <p><strong>Analogia da casa alugada:</strong> IaaS = alugar o terreno (você constrói e cuida de tudo). PaaS = alugar o prédio pronto (você só cuida da decoração = código). SaaS = se hospedar num hotel (o hotel cuida de tudo; você só não perde a chave = senha).</p>
+                            </div>
+
+                            <div class="section-divider"><span>PARTE 3 — SERVIÇOS EM NUVEM E SUA SEGURANÇA</span></div>
+
+                            <h3>3.1 Máquinas virtuais (VMs)</h3>
+                            <p>A VM é o recurso mais básico do IaaS. Passos: escolher tipo de máquina (CPU × memória), imagem do SO (Windows/Linux), configurar armazenamento/rede/permissões, implantar apps e <strong>fazer manutenção contínua do SO (aplicar patches)</strong> — essa parte é responsabilidade do cliente no IaaS!</p>
+
+                            <h3>3.2 Contêineres</h3>
+                            <p>Evolução da VM — mais leve e enxuto. Contém tudo que a aplicação precisa (arquivos, variáveis de ambiente, bibliotecas), compartilhando o kernel do host. Vantagens: portabilidade, espaço reduzido e velocidade. <strong>Docker</strong> empacota; <strong>Kubernetes</strong> orquestra centenas de contêineres em produção.</p>
+
+                            <h3>3.3 Serverless (FaaS)</h3>
+                            <p>O cliente importa código, seleciona interpretador, escolhe CPU/memória e define o gatilho. É orientado a eventos, cobrado por execução, escalável automaticamente, sem configuração de servidor.</p>
+
+                            <h3>3.4 Banco de dados gerenciado</h3>
+                            <p>Em vez de instalar MySQL/PostgreSQL numa VM (e ter que cuidar de tudo — IaaS), o provedor supervisiona a segurança do SO e do banco: <em>hardening</em>, backup, patches, monitoramento, auditoria, criptografia. O cliente só escolhe o tipo, implanta a instância, configura rede/logs/backup e conecta a aplicação.</p>
+
+                            <h3>3.5 Serviços de armazenamento</h3>
+                            <p>Três categorias:</p>
+                            <ul>
+                                <li><strong>File storage (arquivo):</strong> tipo NAS; protocolos NFS/SMB; montável em várias VMs.</li>
+                                <li><strong>Object storage (objeto):</strong> objetos em <em>buckets</em>, acessados via API HTTPS (ideal para arquivos estáticos/backups).</li>
+                                <li><strong>Block storage (bloco):</strong> tipo SAN; volumes formatáveis (NTFS/Ext4) para bancos/SOs.</li>
+                            </ul>
+                            <p>As 4 ameaças ao armazenamento: acesso não autorizado, vazamento, exfiltração (roubo), perda de dados.</p>
+                            <p>As 5 contramedidas:</p>
+                            <ol>
+                                <li><strong>ACL</strong> (lista de controle de acesso);</li>
+                                <li><strong>IAM</strong> (gerenciamento de identidade e acesso — quem pode acessar o quê);</li>
+                                <li><strong>Criptografia</strong> (dados em trânsito e armazenados);</li>
+                                <li><strong>Auditoria</strong> (logs de quem fez o quê e quando);</li>
+                                <li><strong>Backups</strong> (resgate de dados apagados/alterados).</li>
+                            </ol>
+                            <div class="tip-box">
+                                <p><strong>Combo de proteção:</strong> ACL + IAM + criptografia + auditoria + backup.</p>
+                            </div>
+
+                            <h3>3.6 Serviços de rede</h3>
+                            <ul>
+                                <li><strong>DNS:</strong> traduz nomes de host em IPs.</li>
+                                <li><strong>CDN:</strong> conteúdo em cache em vários locais do mundo — mais rápido; também defende contra DDoS.</li>
+                                <li><strong>VPN:</strong> acesso seguro via túnel criptografado (geralmente com MFA — autenticação multifator).</li>
+                                <li><strong>WAF:</strong> firewall de aplicação web que detecta/mitiga ataques HTTP/HTTPS.</li>
+                                <li><strong>Proteção DDoS:</strong> AWS Shield, Azure DDoS Protection, Google Cloud Armor.</li>
+                            </ul>
+
+                            <h3>3.7 Monitoramento e auditoria</h3>
+                            <ul>
+                                <li><strong>Trilha de auditoria:</strong> registro documentado de todas as ações (quem fez o quê, quando).</li>
+                                <li><strong>Alertas:</strong> regras pré-configuradas (ex.: alertar quando admin faz login).</li>
+                                <li><strong>SIEM:</strong> correlaciona logs de vários serviços; dispara alertas inteligentes quando eventos separados em serviços diferentes juntos indicam risco — reduz falsos positivos.</li>
+                            </ul>
+
+                            <div class="section-divider"><span>PARTE 4 — ORIENTAÇÕES DA CSA</span></div>
+
+                            <h3>4.1 Quem é a CSA?</h3>
+                            <p>A <strong>Cloud Security Alliance</strong> é a organização líder global em boas práticas de segurança em nuvem (cloudsecurityalliance.org).</p>
+                            <p>Seus 14 domínios se agrupam em 3: <strong>conceitual</strong>, <strong>governança</strong> e <strong>operação</strong>.</p>
+
+                            <h3>4.2 Domínio conceitual</h3>
+                            <p>Computação em nuvem = novo modelo operacional + tecnologias para gerenciar pools de recursos compartilhados. As duas técnicas-chave são: <strong>abstração</strong> (criar o pool de recursos) e <strong>orquestração</strong> (coordenar a entrega aos clientes).</p>
+                            <p><strong>Multilocação</strong> = segregação (dividir recursos entre grupos) + isolamento (garantir que um grupo não veja/modifique os ativos de outro).</p>
+                            <p>As 4 camadas da arquitetura funcional da CSA:</p>
+                            <ol>
+                                <li><strong>Infraestrutura</strong> (computação, rede, armazenamento);</li>
+                                <li><strong>Metaestrutura</strong> (protocolos que ligam infraestrutura às camadas superiores — a grande diferença da nuvem!);</li>
+                                <li><strong>Appliestrutura</strong> (aplicativos + serviços PaaS);</li>
+                                <li><strong>Infoestrutura</strong> (dados e informações).</li>
+                            </div>
+                            <div class="tip-box">
+                                <p><strong>Analogia:</strong> infraestrutura = o corpo; metaestrutura = o sistema nervoso (liga tudo); appliestrutura = as ações; infoestrutura = as memórias.</p>
+                            </div>
+                            <p>Modelos de segurança recomendados: CSA Enterprise Architecture, CSA Cloud Controls Matrix, NIST SP 500-299, ISO/IEC 27017.</p>
+
+                            <h3>4.3 Domínios de governança (estratégia)</h3>
+                            <p>Governança e gestão de risco, aspectos legais/contratuais, compliance/auditorias e governança da informação.</p>
+
+                            <h3>4.4 Domínios de operação (táticas/implementação)</h3>
+                            <p>Continuidade do negócio, segurança da infraestrutura, virtualização/contêineres, resposta a incidentes, segurança das aplicações, criptografia e dados, IAM (identidade/acessos) e tecnologias relacionadas (Big Data, IoT, mobile).</p>
+
+                            <div class="section-divider"><span>📝 ATIVIDADES DA AULA 3</span></div>
+                        `,
+                        questoes: [
+                            {
+                                pergunta: 'Características essenciais de um provedor de nuvem (segundo o NIST):',
+                                opcoes: [
+                                    'SaaS, PaaS e IaaS.',
+                                    'Serviço medido, elasticidade rápida e agrupamento de recursos.',
+                                    'Nuvem privada, pública e híbrida.',
+                                    'Autoatendimento sob demanda, serviço medido e SaaS.',
+                                    'Autoatendimento sob demanda, PaaS e IaaS.'
+                                ],
+                                correta: 1,
+                                explicacao: 'As 5 características são: autoatendimento sob demanda, amplo acesso à rede, agrupamento de recursos, elasticidade rápida e serviço medido. As outras alternativas misturam modelos de serviço e de implantação.'
+                            },
+                            {
+                                pergunta: 'O modelo em que os grandes players oferecem máquinas virtuais cobradas apenas pelo uso, acessível até para pessoas comuns, é o:',
+                                opcoes: ['Private Cloud', 'SaaS', 'PaaS', 'IaaS', 'On-Demand Self-Service'],
+                                correta: 3,
+                                explicacao: 'O IaaS (EC2, Azure VM, Compute Engine) permite contratar máquinas virtuais a preços acessíveis, cobradas pelo consumo, com controle total sobre o SO e aplicativos.'
+                            },
+                            {
+                                pergunta: 'Os princípios gerais da segurança da informação que a segurança da nuvem deve manter são:',
+                                opcoes: [
+                                    'Clareza, integridade e intratabilidade.',
+                                    'Retratabilidade, confiabilidade e disponibilidade.',
+                                    'Confidencialidade, integridade e disponibilidade.',
+                                    'Confidencialidade, transparência e clareza.',
+                                    'Retratabilidade, integridade e transparência.'
+                                ],
+                                correta: 2,
+                                explicacao: 'A tríade CID é: Confidencialidade (só quem tem direito acessa), Integridade (informação não é alterada indevidamente) e Disponibilidade (sempre disponível quando necessário).'
+                            },
+                            {
+                                pergunta: 'Ordem crescente de responsabilidade do cliente sobre a segurança:',
+                                opcoes: [
+                                    'PaaS < IaaS < SaaS.',
+                                    'IaaS < PaaS < SaaS.',
+                                    'SaaS < IaaS < PaaS.',
+                                    'PaaS < SaaS < IaaS.',
+                                    'SaaS < PaaS < IaaS.'
+                                ],
+                                correta: 4,
+                                explicacao: 'No SaaS o cliente tem a menor responsabilidade (só proteger credenciais); no PaaS cuida de apps/dados; no IaaS cuida de tudo acima do SO, sendo essa a maior responsabilidade.'
+                            },
+                            {
+                                pergunta: 'Sobre os serviços associados à computação:\nI. Contêineres tendem a ser menores e mais rápidos que VMs.\nII. No serverless, o cliente não tem encargo sobre a infraestrutura de computação.\nIII. Com banco gerenciado, o provedor supervisiona SO e SGBD (hardening, backup, patches, monitoramento).\nIV. Contêineres tendem a ser maiores que VMs.',
+                                opcoes: ['Só a IV', 'Só a I', 'Só a II', 'I e II', 'I, II e III'],
+                                correta: 4,
+                                explicacao: 'Contêineres são mais enxutos que VMs; no serverless o provedor cuida da infraestrutura; e o banco gerenciado libera o cliente dos cuidados com o SGBD e SO (manutenção, patches, disponibilidade, backup, criptografia, auditoria).'
+                            },
+                            {
+                                pergunta: 'Tipos de serviço de armazenamento:',
+                                opcoes: [
+                                    'Arquivo, bloco e pastas.',
+                                    'Arquivo, bloco e objetos.',
+                                    'Contêineres, objetos e pastas.',
+                                    'Blocos, binários e bibliotecas.',
+                                    'Bibliotecas, objetos e pastas.'
+                                ],
+                                correta: 1,
+                                explicacao: 'Os três tipos principais são: arquivo (file, tipo NAS/NFS/SMB), bloco (block, tipo SAN) e objeto (object, buckets via API). Há também o CSI para contêineres.'
+                            },
+                            {
+                                pergunta: 'Segundo a CSA, os conceitos que juntos compõem a multilocação são:',
+                                opcoes: [
+                                    'Abstração e orquestração.',
+                                    'Abstração e segregação.',
+                                    'Segregação e isolamento.',
+                                    'Orquestração e isolamento.',
+                                    'Segregação e orquestração.'
+                                ],
+                                correta: 2,
+                                explicacao: 'Multilocação = segregação (dividir recursos entre grupos/tenants) + isolamento (garantir que um grupo não veja/modifique os ativos do outro).'
+                            },
+                            {
+                                pergunta: 'Além do domínio conceitual, os dois grupos de domínios da CSA são:',
+                                opcoes: [
+                                    'Tático e operacional.',
+                                    'Governança e operação.',
+                                    'Estratégico e governança.',
+                                    'Estratégico e operacional.',
+                                    'Governança e tático.'
+                                ],
+                                correta: 1,
+                                explicacao: 'Os 14 domínios da CSA se agrupam em 3 blocos: conceitual, governança (questões estratégicas/políticas) e operação (questões táticas/implementação).'
+                            }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // ==================== ROTEAMENTO E RENDERIZAÇÃO ====================
+
+        let estadoAtual = 'materias'; // 'materias', 'aulas', 'conteudo'
+        let materiaAtual = null;
+        let aulaAtual = null;
+
+        function render() {
+            const app = document.getElementById('app');
+
+            if (estadoAtual === 'materias') {
+                app.innerHTML = `
+                    <h2 class="page-title">📖 Escolha uma Matéria</h2>
+                    <div class="grid">
+                        ${materias.map(m => `
+                            <div class="card materia" onclick="abrirMateria('${m.id}')">
+                                <div class="card-icon">${m.icone}</div>
+                                <h3>${m.nome}</h3>
+                                <p>${m.descricao}</p>
+                                <p style="margin-top:10px;font-size:0.9em;color:#e94560;">${m.aulas.length} aulas disponíveis</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } else if (estadoAtual === 'aulas') {
+                const m = materias.find(mat => mat.id === materiaAtual);
+                app.innerHTML = `
+                    <div class="breadcrumb">
+                        <button onclick="voltarMaterias()">← Matérias</button>
+                        <span>›</span>
+                        <span style="color:#e94560;font-weight:bold;">${m.nome}</span>
+                    </div>
+                    <h2 class="page-title">${m.icone} Aulas de ${m.nome}</h2>
+                    <div class="grid">
+                        ${m.aulas.map(a => `
+                            <div class="card aula" onclick="abrirAula('${a.id}')">
+                                <div class="card-icon">${a.icone}</div>
+                                <h3>Aula ${a.numero}</h3>
+                                <p>${a.titulo}</p>
+                                <p style="margin-top:10px;font-size:0.9em;color:#3498db;">${a.questoes.length} questões</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } else if (estadoAtual === 'conteudo') {
+                const m = materias.find(mat => mat.id === materiaAtual);
+                const a = m.aulas.find(au => au.id === aulaAtual);
+                app.innerHTML = `
+                    <div class="breadcrumb">
+                        <button onclick="voltarMaterias()">← Matérias</button>
+                        <span>›</span>
+                        <button onclick="voltarAulas()">${m.nome}</button>
+                        <span>›</span>
+                        <span style="color:#e94560;font-weight:bold;">Aula ${a.numero}</span>
+                    </div>
+                    <button class="back-btn" onclick="voltarAulas()">← Voltar às aulas</button>
+                    <div class="content-area">
+                        ${a.conteudo}
+                        ${a.questoes.map((q, qi) => renderQuestao(q, qi)).join('')}
+                    </div>
+                `;
+            }
+        }
+
+        function renderQuestao(q, qi) {
+            const letras = ['A', 'B', 'C', 'D', 'E'];
+            return `
+                <div class="questao" id="questao-${qi}">
+                    <h4>${q.pergunta.replace(/\n/g, '<br>')}</h4>
+                    <div class="opcoes">
+                        ${q.opcoes.map((op, oi) => `
+                            <div class="opcao" id="opcao-${qi}-${oi}" onclick="responder(${qi}, ${oi})">
+                                <span class="opcao-letra">${letras[oi]}</span>
+                                <span>${op}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="feedback" id="feedback-${qi}">
+                        <h5 id="feedback-titulo-${qi}"></h5>
+                        <p id="feedback-texto-${qi}"></p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function responder(qi, oi) {
+            const m = materias.find(mat => mat.id === materiaAtual);
+            const a = m.aulas.find(au => au.id === aulaAtual);
+            const q = a.questoes[qi];
+
+            const questaoEl = document.getElementById(`questao-${qi}`);
+            const feedbackEl = document.getElementById(`feedback-${qi}`);
+
+            // Se já acertou, não faz nada
+            if (questaoEl.classList.contains('correta')) return;
+
+            // Desabilita novas respostas? Vamos permitir tentar de novo em erradas, mas marcar visualmente
+            // Marca a opção selecionada
+            for (let i = 0; i < q.opcoes.length; i++) {
+                const opEl = document.getElementById(`opcao-${qi}-${i}`);
+                if (i === q.correta) {
+                    opEl.classList.add('correta-resposta');
+                }
+                opEl.classList.add('desabilitado');
+            }
+
+            const opcaoSelecionada = document.getElementById(`opcao-${qi}-${oi}`);
+            const titulo = document.getElementById(`feedback-titulo-${qi}`);
+            const texto = document.getElementById(`feedback-texto-${qi}`);
+
+            if (oi === q.correta) {
+                // Acertou
+                questaoEl.classList.remove('incorreta');
+                questaoEl.classList.add('correta');
+                feedbackEl.classList.remove('incorreto');
+                feedbackEl.classList.add('correto');
+                opcaoSelecionada.classList.add('correta-resposta');
+                titulo.innerHTML = '<span class="parabens">🎉</span> Parabéns! Você acertou!';
+                texto.innerHTML = `<strong>Resposta correta!</strong><br><br>${q.explicacao}`;
+            } else {
+                // Errou
+                questaoEl.classList.remove('correta');
+                questaoEl.classList.add('incorreta');
+                feedbackEl.classList.remove('correto');
+                feedbackEl.classList.add('incorreto');
+                opcaoSelecionada.classList.add('selecionada');
+                titulo.innerHTML = '❌ Que pena, você errou! Tente novamente.';
+                texto.innerHTML = 'Veja a resposta correta destacada em verde acima. Clique em outra opção se quiser tentar de novo — ou leia a explicação assim que acertar!';
+
+                // Permite tentar de novo após um tempo: remove o "desabilitado" das incorretas
+                setTimeout(() => {
+                    for (let i = 0; i < q.opcoes.length; i++) {
+                        const opEl = document.getElementById(`opcao-${qi}-${i}`);
+                        if (i !== q.correta) {
+                            opEl.classList.remove('selecionada', 'desabilitado');
+                        }
+                    }
+                    questaoEl.classList.remove('incorreta');
+                    feedbackEl.classList.remove('incorreto');
+                }, 1800);
+            }
+        }
+
+        function abrirMateria(id) {
+            materiaAtual = id;
+            estadoAtual = 'aulas';
+            window.scrollTo(0, 0);
+            render();
+        }
+
+        function abrirAula(id) {
+            aulaAtual = id;
+            estadoAtual = 'conteudo';
+            window.scrollTo(0, 0);
+            render();
+        }
+
+        function voltarMaterias() {
+            materiaAtual = null;
+            aulaAtual = null;
+            estadoAtual = 'materias';
+            window.scrollTo(0, 0);
+            render();
+        }
+
+        function voltarAulas() {
+            aulaAtual = null;
+            estadoAtual = 'aulas';
+            window.scrollTo(0, 0);
+            render();
+        }
+
+        // Inicializa
+        render();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2e9f6921ebfc6c1',t:'MTc4NzMxODcyMA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
